@@ -1,7 +1,6 @@
 module Sheets
 
 // NB: bug if module has same name as nonterminal.
-
 extend lang::javascript::saner::Syntax;
 import ParseTree;
 import String;
@@ -32,6 +31,9 @@ lrel[loc, str] updateSheet(Expression old, Expression new) {
    return ( [] | it + updateRow(oldRows[i], newRows[i]) | i <- [0..numOfRows] );
 }
 
+lrel[loc,str] updateRow(Expression row, Expression newRow) 
+  = ( [] | it + updateOrAppend(row, p) | PropertyAssignment p <- newRow.properties ); 
+
 lrel[loc,str] updateOrAppend(Expression row, PropertyAssignment p) {
      lrel[loc, str] patch = [];
      found = false;
@@ -59,15 +61,6 @@ lrel[loc,str] updateOrAppend(Expression row, PropertyAssignment p) {
      }
      return patch;
 }
-
-lrel[loc,str] updateRow(Expression row, Expression newRow) {
-      lrel[loc, str] patch = [];
-      for (PropertyAssignment p <- newRow.properties) {
-        patch += updateOrAppend(row, p);
-      }
-      return patch;
-}
-
 
 str unquote((PropertyName)`<Id x>`) = "<x>";
 str unquote((PropertyName)`<String x>`) = "<x>"[1..-1];
