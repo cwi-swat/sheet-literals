@@ -24,7 +24,7 @@ void main() {
              return [];
            }
          }
-         e2 = evalSheet(|project://sheet-literals/src/libsheet.js|, src, x);
+         e2 = evalSheet(|project://sheet-literals/src/libsheet2.js|, src, x);
          last = just(e);
          return updateSheet(e, e2);
        }
