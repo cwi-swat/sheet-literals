@@ -17,8 +17,8 @@ Maybe[tuple[Id, Expression]] findSheet(start[Source] src) {
    return nothing();
 }
 
-Expression evalSheet(start[Source] src, Id x) {
-  str json = evalJS(|project://SpreadsheetJS/src/dummy.js|, "<src>; JSON.stringify(<x>)");
+Expression evalSheet(loc lib, start[Source] src, Id x) {
+  str json = evalJS(lib, "<src>; JSON.stringify(<x>)");
   json = replaceAll(json, "\"", "\'");
   return parse(#Expression, json);
 }

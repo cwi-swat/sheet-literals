@@ -7,18 +7,13 @@ import util::Maybe;
 import IO;
 
 
-private str LANG = "SheetJS";
+private str LANG = "JS+SheetLiterals";
 
 void main() {
   registerLanguage(LANG, "js", start[Source](str src, loc org) {
     return parse(#start[Source], src, org);
   });
-  
-  /*
-  Maybe[tuple[Id, Expression]] findSheet(start[Source] src) { 
-  Expression evalSheet(start[Source] src, Id x) {
-  lrel[loc, str] updateSheet(start[Source] src, Expression old, Expression new) 
-  */
+
   Maybe[Expression] last = nothing();
   
   registerContributions(LANG, {
@@ -29,7 +24,7 @@ void main() {
              return [];
            }
          }
-         e2 = evalSheet(src, x);
+         e2 = evalSheet(|project://sheet-literals/src/libsheet.js|, src, x);
          last = just(e);
          return updateSheet(e, e2);
        }

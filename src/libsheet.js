@@ -1,10 +1,6 @@
 'use strict';
 
-// Library starts here.
-
-
 var rowConstructors = [];
-
 
 function row(f) {
     rowConstructors.push(f);
@@ -155,79 +151,5 @@ function avg(key, sheet) {
     });
     return total / count;
 }
-
-////////// end of library
-
-
-
-
-
-row(function NumOfStudents(sheet) {
-  this.numOfStudents = function() {
-    return count('student', sheet);
-  };
-});
-
-row(function ClassAvg(sheet) {
-    this.classAvg = function () {
-        return avg('avg', sheet);
-    };
-});
-
-row(function Grade(sheet, student, lab, exam) {
-    this.student = student;
-    this.lab = lab;
-    this.exam = exam;
-    this.avg = function () {
-        return (this.lab + this.exam) / 2;
-    };
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var grades = sheet([
- {numOfStudents: 4},
- {student: 'Felienne', lab: 10 , exam: 9, avg: 9.5},
- {student: 'Tijs', lab: 10, exam: 7.5, avg:8.75},
- {student:'Piet', lab: 7, exam: 6, avg: 6.5},
- {student:'Truus', lab: 7, exam: 6, avg: 6.5},
- {classAvg: 7.8125}
-]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
