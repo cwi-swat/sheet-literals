@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<head>
+    <meta charset="utf-8" />
+    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    
+</head>
+<script src="https://cdn.rawgit.com/jquery/esprima/2.7.2/esprima.js"></scrip>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="libsheet.js"></script>
+
+  <script>
+    $(document).ready(function() {
+//    app.run();
+    });
+  </script>
+
+    <style type="text/css" media="screen">
+    #editor {
+        margin: 0;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+    </style>
+    
+<body>
+  
+    <div id="container">
+        <div id="header">
+          <h1>Live literals</h1>
+        </div>
+        <div id="root"></div>
+
+
+        <div class="ace_content" style="margin-top: 0px; width: 848px; height: 496px; margin-left: 0px;">
+          <div class="ace_layer ace_print-margin-layer">
+            <div class="ace_print-margin" style="left: 580.1px; visibility: visible;"></div>
+          </div><
+                   
+                   <pre id="editor">
+cell(function avg(sheet, lab, exam) {
+  return (lab + exam) / 2;
+});
+
+cell(function classAvg(sheet) {
+  return avg('avg', sheet);
+});
+
+
+var grades = sheet([
+ {student: 'Felienne', lab: 32343, exam: 9, avg: 16176},
+ {student: 'Tijs', lab: 10, exam:7.7, avg: 8.85},
+ {student: 'Piet', lab: 4, exam:7.7, avg: 5.85},
+ {classAvg: 5396.900000000001}
+]);
+</pre>
+        </div>
+
+        
+	
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/eclipse");
+    editor.session.setMode("ace/mode/javascript");
+    editor.session.setOption("useWorker", false);
+    editor.getSession().on('change', changeHandler(editor));
+</script>
+
+
+</body>
