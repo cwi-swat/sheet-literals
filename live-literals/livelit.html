@@ -29,17 +29,13 @@
   
     <div id="container">
         <div id="header">
-          <h1>Live literals</h1>
+          <h1 style="margin: 20px;">Live Literals</h1>
         </div>
         <div id="root"></div>
 
 
-        <div class="ace_content" style="margin-top: 0px; width: 848px; height: 496px; margin-left: 0px;">
-          <div class="ace_layer ace_print-margin-layer">
-            <div class="ace_print-margin" style="left: 580.1px; visibility: visible;"></div>
-          </div><
-                   
-                   <pre id="editor">
+        <div class="ace_content" style="margin-top: 0px; width: 500px; height: 406px; margin-left: 20px;">
+                   <pre id="editor" style="width: 500px;">
 cell(function avg(sheet, lab, exam) {
   return (lab + exam) / 2;
 });
@@ -55,6 +51,14 @@ var grades = sheet([
  {student: 'Piet', lab: 4, exam:7.7, avg: 5.85},
  {classAvg: 5396.900000000001}
 ]);
+
+function add(x, y) {
+  test([
+   {x: 1, y: 3, should: 4},
+   {x: 1, y: 5, result: 6}
+  ]);
+  return x + y;
+}
 </pre>
         </div>
 

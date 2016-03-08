@@ -170,6 +170,51 @@ function findSheet(tree) {
     return found;
 }
 
+function test(specs) {
+    console.log('returning test func');
+    return function (func) {
+        var fs = formals(func);
+        var s = cloneSheet(specs);
+        for (var i = 0; i < s.length; i++) {
+            var args = [];
+            for (var j = 0; j < fs.length; j++) {
+                if (s[i].hasOwnProperty(fs[j])) {
+                    args.push(s[i][fs[j]]);
+                }
+                else {
+                    // or invent a value...
+                    args.push(undefined);
+                }
+            }
+            var result = func.apply(undefined, args);
+            if (s[i].hasOwnProperty('should')) {
+                s[i].result = result === s[i].should;
+            }
+            else {
+                s[i].result = result;
+            }
+        }
+        return s;
+    };
+}
+
+function findTests(tree) {
+    var found = [];
+    traverse(tree, function(x) {
+        if (x.type === 'FunctionDeclaration' ) {
+            if (x.body.body[0].type === 'ExpressionStatement'
+                && x.body.body[0].expression.type === 'CallExpression'
+                && x.body.body[0].expression.callee.name === 'test') {
+                found.push({name: x.id.name, test: x.body.body[0].expression});
+            }
+        }
+    });
+    return found;
+}
+
+
+
+
 function patchSheet(tree, rows) {
     var patch = [];
     traverse(tree, function(x) {
@@ -256,5 +301,14 @@ function updateLiterals(editor) {
     // todo: adjust with offset.
     editor.moveCursorToPosition(pos);
     silent = false;
+
+    var tests = findTests(tree);
+    for (var j = 0; j < tests.length; j++) {
+        var testSrc = src.slice(tests[j].test.range[0], tests[j].test.range[1]);
+        console.log('TEST: ' + testSrc);
+        var val = geval(src + '; ' + testSrc);
+        var func = geval(src + '; ' + tests[j].name);
+        console.log(JSON.stringify(val(func)));
+    }
 
 }
