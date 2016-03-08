@@ -212,7 +212,63 @@ function findTests(tree) {
     return found;
 }
 
+function patchLiteral(ast, val, patch) {
+    for (var i = 0; i < ast.elements.length; i++) {
+        var row = ast.elements[i];
+        console.log('row = ' + i + ': ' + JSON.stringify(row));
+        var newRow = val[i];
+        for (var j = 0; j < row.properties.length; j++) {
+            var prop = row.properties[j];
+            for (var k in newRow) {
+                if (newRow.hasOwnProperty(k)) {
+                    if (prop.key.name === k) {
+                        if (!prop.value.computed && prop.value.value !== newRow[k]) {
+                            console.log('original: ' + prop.value.value);
+                            console.log('new: ' + newRow[k]);
+                            
+                            patch.push({range: prop.value.range,
+                                        loc: prop.value.loc,
+                                        value: newRow[k]});
+                        }
+                    }
+                }
+            }
+        }
+        for (var k in newRow) {
+            if (newRow.hasOwnProperty(k)) {
+                var found = false;
+                for (var j = 0; j < row.properties.length; j++) {
+                    if (row.properties[j].key.name === k) {
+                        found = true;
+                    }
+                }
+                if (!found) {
+                    patch.push({range: [row.range[1] - 1, row.range[1] - 1],
+                                loc: undefined,
+                                value: ', ' + k + ': ' + newRow[k]});
+                }
+            }
+        }
+    }
+}
 
+
+function patchTest(tree, lit, specs) {
+    var patch = [];
+    traverse(tree, function(x) {
+        if (x.type === 'FunctionDeclaration' ) {
+            if (x.body.body[0].type === 'ExpressionStatement'
+                && x.body.body[0].expression.type === 'CallExpression'
+                && x.body.body[0].expression.callee.name === 'test'
+                //&& x.body.body[0].expression.range[0] === lit.range[0]) {
+               ) {
+                var it = x.body.body[0].expression.arguments[0];
+                patchLiteral(it, specs, patch);
+            }
+        }
+    });
+    return patch;
+}
 
 
 function patchSheet(tree, rows) {
@@ -283,18 +339,32 @@ function updateLiterals(editor) {
     var patch = patchSheet(tree, value);
     console.log(JSON.stringify(patch));
 
+    var tests = findTests(tree);
+    for (var j = 0; j < tests.length; j++) {
+        var testSrc = src.slice(tests[j].test.range[0], tests[j].test.range[1]);
+        console.log('TEST: ' + testSrc);
+        var val = geval(src + '; ' + testSrc);
+        var func = geval(src + '; ' + tests[j].name);
+        var specs = val(func);
+        console.log('SPECS = ' + JSON.stringify(specs));
+        var testPatch = patchTest(tree, tests[j].test, specs);
+        console.log('test patch: ' + JSON.stringify(testPatch));
+        patch = patch.concat(testPatch);
+    }
+
+    
     var session = editor.getSession();
     var doc = session.getDocument();
     var offset = 0;
     for (var i = 0; i < patch.length; i++) {
         var p = patch[i];
-        console.log(JSON.stringify(p));
-        console.log(p.loc.start.line);
+        console.log("PATCHING: " + JSON.stringify(p));
+        //console.log(p.loc.start.line);
         src = src.slice(0, offset + p.range[0]) + p.value + src.slice(offset + p.range[1]);
         offset += p.value.toString().length - (p.range[1] - p.range[0]);
         console.log('offset = ' + offset);
     }
-    console.log(src);
+
     silent = true;
     var pos = editor.getCursorPosition();
     editor.getSession().setValue(src);
@@ -302,13 +372,5 @@ function updateLiterals(editor) {
     editor.moveCursorToPosition(pos);
     silent = false;
 
-    var tests = findTests(tree);
-    for (var j = 0; j < tests.length; j++) {
-        var testSrc = src.slice(tests[j].test.range[0], tests[j].test.range[1]);
-        console.log('TEST: ' + testSrc);
-        var val = geval(src + '; ' + testSrc);
-        var func = geval(src + '; ' + tests[j].name);
-        console.log(JSON.stringify(val(func)));
-    }
 
 }
