@@ -475,13 +475,18 @@ function updateLiterals(editor) {
 
     for (var j = 0; j < runs.length; j++) {
         probes = {}; // reset for each run
-        console.log(JSON.stringify(runs[j]));
         var runSrc = src.slice(runs[j].run.range[0], runs[j].run.range[1]);
-        var val = geval(src + '; ' + runSrc);
-        var func = geval(src + '; ' + runs[j].name);
-        val(func); // run function
-        var probePatches = patchProbes(tree, runs[j].run);
-        patch = patch.concat(probePatches);
+        try {
+            var val = geval(src + '; ' + runSrc);
+            var func = geval(src + '; ' + runs[j].name);
+            val(func); // run function
+            var probePatches = patchProbes(tree, runs[j].run);
+            patch = patch.concat(probePatches);
+        }
+        catch (e) {
+            console.log(e);
+            continue;
+        }
     }
 
     

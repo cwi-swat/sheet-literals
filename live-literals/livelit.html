@@ -61,20 +61,21 @@ function add(x, y) {
 }
 
 function binarySearch(key, array) {
-    run({key: 'g', array: ['a', 'b', 'c', 'e', 'f']});
+    run({key: 'd', array: ['a', 'b', 'c', 'e', 'f']});
 
     var low = 0; 
     var high = array.length - 1; 
 
+    var result = -1;
     while (low <= high) {
-        p(low, [0, 3, 5]);
-        p(high, [5, 5, 5]);
+        p(low, [0,3]);
+        p(high, [4,4]);
         
         var mid = Math.floor((low + high)/2);
         var value = array[mid];
 
-        p(mid, [2, 4, 5]);
-        p(value, ['c', 'e', 'f']);
+        p(mid, [2,3]);
+        p(value, ["c","e"]);
 
         if (value < key) {
             low = mid + 1; 
@@ -83,13 +84,13 @@ function binarySearch(key, array) {
             high = mid - 1;
         }
         else {
-            return mid;
+            result = mid;
+            break;
         }
     }
-
-    return -1;
+    p(result, [-1])
+    return result;
 }
-
 </pre>
         </div>
 
