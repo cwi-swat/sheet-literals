@@ -491,7 +491,7 @@ function updateLiterals(editor) {
     for (var i = 0; i < patch.length; i++) {
         var p = patch[i];
         src = src.slice(0, offset + p.range[0]) + p.value + src.slice(offset + p.range[1]);
-        offset += p.value.toString().length - (p.range[1] - p.range[0]);
+        offset += (p.value + '').length - (p.range[1] - p.range[0]);
         console.log('offset = ' + offset);
     }
 
