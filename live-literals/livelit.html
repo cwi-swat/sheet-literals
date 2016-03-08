@@ -34,8 +34,8 @@
         <div id="root"></div>
 
 
-        <div class="ace_content" style="margin-top: 0px; width: 500px; height: 406px; margin-left: 20px;">
-                   <pre id="editor" style="width: 500px;">
+        <div class="ace_content" style="margin-top: 0px; width: 700px; height: 806px; margin-left: 20px;">
+                   <pre id="editor" style="width: 700px;">
 cell(function avg(sheet, lab, exam) {
   return (lab + exam) / 2;
 });
@@ -59,6 +59,36 @@ function add(x, y) {
   ]);
   return x + y;
 }
+
+function binarySearch(key, array) {
+    run({key: 'g', array: ['a', 'b', 'c', 'e', 'f']});
+
+    var low = 0; p({low: 0});
+    var high = array.length - 1; p({high: 5});
+
+    while (low <= high) {
+        p(low, [0, 3, 5]);
+        p(high, [5, 5, 5]),
+        p(mid, [2, 4, 5]);
+        p(value, ['c', 'e', 'f']);
+        
+        var mid = Math.floor((low + high)/2);
+        var value = array[mid];
+
+        if (value < key) {
+            low = mid + 1; p({low: [3, 4, 6]});
+        }
+        else if (value > key) {
+            high = mid - 1;
+        }
+        else {
+            return mid;
+        }
+    }
+
+    return -1;
+}
+
 </pre>
         </div>
 

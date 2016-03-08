@@ -212,10 +212,25 @@ function findTests(tree) {
     return found;
 }
 
+function findRuns(tree) {
+    var found = [];
+    traverse(tree, function(x) {
+        if (x.type === 'FunctionDeclaration' ) {
+            if (x.body.body[0].type === 'ExpressionStatement'
+                && x.body.body[0].expression.type === 'CallExpression'
+                && x.body.body[0].expression.callee.name === 'run') {
+                found.push({name: x.id.name, run: x.body.body[0].expression});
+            }
+        }
+    });
+    return found;
+}
+
+
 function patchLiteral(ast, val, patch) {
     for (var i = 0; i < ast.elements.length; i++) {
         var row = ast.elements[i];
-        console.log('row = ' + i + ': ' + JSON.stringify(row));
+        //console.log('row = ' + i + ': ' + JSON.stringify(row));
         var newRow = val[i];
         for (var j = 0; j < row.properties.length; j++) {
             var prop = row.properties[j];
@@ -260,8 +275,7 @@ function patchTest(tree, lit, specs) {
             if (x.body.body[0].type === 'ExpressionStatement'
                 && x.body.body[0].expression.type === 'CallExpression'
                 && x.body.body[0].expression.callee.name === 'test'
-                //&& x.body.body[0].expression.range[0] === lit.range[0]) {
-               ) {
+                && x.body.body[0].expression.range[0] === lit.range[0]) {
                 var it = x.body.body[0].expression.arguments[0];
                 patchLiteral(it, specs, patch);
             }
@@ -301,6 +315,116 @@ function patchSheet(tree, rows) {
     return patch;
 }
 
+function run(spec) {
+    console.log('returning run func');
+    return function (func) {
+        var fs = formals(func);
+        var args = [];
+        for (var j = 0; j < fs.length; j++) {
+            if (spec.hasOwnProperty(fs[j])) {
+                args.push(spec[fs[j]]);
+            }
+            else {
+                // or invent a value...
+                args.push(undefined);
+            }
+        }
+        return func.apply(undefined, args);
+    };
+}
+
+function binarySearch(key, array) {
+    run({key: 'g', array: ['a', 'b', 'c', 'e', 'f']});
+
+    var low = 0; p({low: 0});
+    var high = array.length - 1; p({high: 5});
+
+    while (low <= high) {
+        p(low, [0, 3, 5]);
+        p(high, [5, 5, 5]),
+        p(mid, [2, 4, 5]);
+        p(value, ['c', 'e', 'f']);
+        
+        var mid = Math.floor((low + high)/2);
+        var value = array[mid];
+
+        if (value < key) {
+            low = mid + 1; p({low: [3, 4, 6]});
+        }
+        else if (value > key) {
+            high = mid - 1;
+        }
+        else {
+            return mid;
+        }
+    }
+
+    return -1;
+}
+
+var probes = {};
+
+function patchProbes(tree, lit) {
+    var patch = [];
+    var found = true;
+    traverse(tree, function(x) {
+        if (x.type === 'FunctionDeclaration' ) {
+            if (x.body.body[0].type === 'ExpressionStatement'
+                && x.body.body[0].expression.type === 'CallExpression'
+                && x.body.body[0].expression.callee.name === 'run'
+                && x.body.body[0].expression.range[0] === lit.range[0]) {
+                found = true;
+            }
+        }
+        if (x.type === 'CallExpression' && x.callee.name === 'p') {
+            var loc = x.loc;
+            console.log(JSON.stringify(probes));
+            var key = loc.start.line + ':' + (loc.start.column + 1);
+            console.log("KEY = " + key);
+            var probed = probes[key];
+            if (x.arguments.length > 1) {
+                // replace last arg
+                patch.push({range: x.arguments[1].range,
+                           loc: x.arguments[1].loc,
+                            value: JSON.stringify(probed)});
+            }
+            else {
+                // insert last arg.
+                patch.push({range: [x.arguments[0].range[1], x.arguments[0].range[1]],
+                            value: ', ' + JSON.stringify(probed)});
+            }
+        }
+    });
+    return patch;
+}
+
+
+// transforms to: p({x: valueOfX})
+function p(x, ignored) {
+    var err = getErrorObject();
+    var caller_line = err.stack.split('\n')[4];
+    console.log("caller = " + caller_line);
+    var index = caller_line.indexOf('<anonymous>');
+    var key = caller_line.slice(index+12, caller_line.length - 1);
+    console.log("key = " + key);
+
+    if (!probes.hasOwnProperty(key)) {
+        probes[key] = [];
+    }
+    probes[key].push(x);
+    return probes[key];
+}
+
+
+
+
+function getErrorObject(){
+    try { throw Error('') } catch(err) { return err; }
+}
+
+
+
+
 var silent = false;
 function changeHandler(editor) {
     return function(e) {
@@ -335,21 +459,29 @@ function updateLiterals(editor) {
         console.log(e);
         return;
     }
-    console.log(JSON.stringify(value));
     var patch = patchSheet(tree, value);
-    console.log(JSON.stringify(patch));
 
     var tests = findTests(tree);
     for (var j = 0; j < tests.length; j++) {
         var testSrc = src.slice(tests[j].test.range[0], tests[j].test.range[1]);
-        console.log('TEST: ' + testSrc);
         var val = geval(src + '; ' + testSrc);
         var func = geval(src + '; ' + tests[j].name);
         var specs = val(func);
-        console.log('SPECS = ' + JSON.stringify(specs));
         var testPatch = patchTest(tree, tests[j].test, specs);
-        console.log('test patch: ' + JSON.stringify(testPatch));
         patch = patch.concat(testPatch);
+    }
+
+    var runs = findRuns(tree);
+
+    for (var j = 0; j < runs.length; j++) {
+        probes = {}; // reset for each run
+        console.log(JSON.stringify(runs[j]));
+        var runSrc = src.slice(runs[j].run.range[0], runs[j].run.range[1]);
+        var val = geval(src + '; ' + runSrc);
+        var func = geval(src + '; ' + runs[j].name);
+        val(func); // run function
+        var probePatches = patchProbes(tree, runs[j].run);
+        patch = patch.concat(probePatches);
     }
 
     
@@ -358,8 +490,6 @@ function updateLiterals(editor) {
     var offset = 0;
     for (var i = 0; i < patch.length; i++) {
         var p = patch[i];
-        console.log("PATCHING: " + JSON.stringify(p));
-        //console.log(p.loc.start.line);
         src = src.slice(0, offset + p.range[0]) + p.value + src.slice(offset + p.range[1]);
         offset += p.value.toString().length - (p.range[1] - p.range[0]);
         console.log('offset = ' + offset);
