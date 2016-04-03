@@ -445,22 +445,21 @@ function updateLiterals(editor) {
     }
 
     var sheet = findSheet(tree);
-
-    if (!sheet) {
-        return;
-    }
-    
     var geval = eval;
-    try {
-        cellFuncs = [];
-        var value = geval(src + '; ' + src.slice(sheet.range[0], sheet.range[1]));
+    var patch = [];
+    
+    if (sheet) {
+        try {
+            cellFuncs = [];
+            var value = geval(src + '; ' + src.slice(sheet.range[0], sheet.range[1]));
+        }
+        catch (e) {
+            console.log(e);
+            return;
+        }
+        patch = patch.concat(patchSheet(tree, value));
     }
-    catch (e) {
-        console.log(e);
-        return;
-    }
-    var patch = patchSheet(tree, value);
-
+        
     var tests = findTests(tree);
     for (var j = 0; j < tests.length; j++) {
         var testSrc = src.slice(tests[j].test.range[0], tests[j].test.range[1]);

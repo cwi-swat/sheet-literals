@@ -1,10 +1,11 @@
 <!DOCTYPE HTML>
 <head>
     <meta charset="utf-8" />
-    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="tufte.css"/>
+  <link rel="stylesheet" href="latex.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
     
-</head>
-<script src="https://cdn.rawgit.com/jquery/esprima/2.7.2/esprima.js"></scrip>
+<script src="https://cdn.rawgit.com/jquery/esprima/2.7.2/esprima.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="libsheet.js"></script>
 
@@ -24,18 +25,79 @@
         right: 0;
     }
     </style>
-    
+
+</head>
+
+
 <body>
-  
-    <div id="container">
-        <div id="header">
-          <h1 style="margin: 20px;">Live Literals</h1>
-        </div>
-        <div id="root"></div>
+  <article>
+    <h1>Live Literals</h1>
+    <p class="subtitle">Felienne Hermans, Tijs van der Storm</p>
+    <section id="intro">
+      <h2>Introduction</h2>
+      <p><span class="newthought">Live programming environments</span>
+        improve programmer experience by providing views of program
+        execution which are continuously, and instantaneously updated.
+        In most existing work on liveness, these views are considered
+        part of the IDE: separate windows, panels, or widgets allow
+        programmers to inspect and interact with live data and program
+        execution.  In this paper we present "live literals", as an
+        example of "live text"<label for="sn-hancock" class="margin-toggle
+        sidenote-number"></label> <input type="checkbox"
+        id="sn-hancock" class="margin-toggle"/>
+        <span class="sidenote">Christopher Hancock, <em>Real-time
+        programming and the big ideas of computational literacy</em>,
+        MIT, 2003</span>, where the source code itself is used as
+        vehicle for immediate feedback and direct manipulation.  Live
+        literals are like ordinary programming language literals, but
+        they are automatically updated after certain changes to the
+        code.  The advantage of this kind of live text is twofold:
+        first it avoids mental context-switching between different
+        kinds of views or representations. Second, being part of the
+        source code enables versioning and sharing of those views
+        themselves.  We illustrate the concept of live literals using
+        three examples in Javascript: embedded spreadsheets, live
+        units tests, and probes. </p>
 
 
-        <div class="ace_content" style="margin-top: 0px; width: 700px; height: 806px; margin-left: 20px;">
-                   <pre id="editor" style="width: 700px;">
+      <h3>Live Literals</h3>
+
+      <p>
+        Literals are data. Normally: just static and constant inputs to computation, for instance to initialize. Mostly: atomic, like int, bool, string, but also composite: list (Lisp), array (Ruby, Python etc.), or object (JS, newtonscript).
+        Live literals changes the behavior: dynamic (e.g., data literals = data entry), and two-way: not only can you provide inputs, but results of computation may be fed back into the source code as <em>output</em>.
+        </p>
+      
+    </section>
+
+    <section id="liveliterals">
+      <h2>Exploring Live literals</h2>
+
+      <h3>Examples and Tests</h3>
+
+      <p>
+        A benefit of live programming system is that it is easy to detect mistakes, as the data as well as the code are in one view. With Live Literals, we can also implement light weight unit tests, by adding a 'should' field to classes. A result is then added indicating whether or not the method fulfills the specification.
+</p>
+  <div id="editor_tests" style="margin-top: 0px; width: 500px; height: 206px; margin-left: 0px;">
+function add(x, y) {
+  test([
+   {x: 1, y: 3, should: 4},
+   {x: 1, y: 5, result: 6}
+  ]);
+  return x + y;
+}
+  </div>
+
+      <h3>Embedding Spreadsheets</h3>
+
+      <p>
+        Spreadsheets are often used to do simple calculations in which data is summed or multiplied, both within rows are within columns. The benefits of using spreadsheets is that they are easy to use, and live. With Live Literals we can implement such spreadsheet problems.
+        </p>
+
+      <p>
+In the example below, we want to calculate the average of students in our class, as well as the average of all students.
+      </p>
+      
+      <div id="editor_sheets" style="margin-top: 0px; width: 500px; height: 206px; margin-left: 0px;">
 cell(function avg(sheet, lab, exam) {
   return (lab + exam) / 2;
 });
@@ -50,16 +112,32 @@ var grades = sheet([
  {student: 'Tijs', lab: 10, exam:7.7, avg: 8.85},
  {student: 'Piet', lab: 4, exam:7.7, avg: 5.85},
  {classAvg: 5396.900000000001}
-]);
+]);        
+  </div>
 
-function add(x, y) {
-  test([
-   {x: 1, y: 3, should: 4},
-   {x: 1, y: 5, result: 6}
-  ]);
-  return x + y;
-}
+<p>Explain the example in more detail. Conlude: we get the same behavior as with traditional spreadsheet systems, only the user interface is completely textual.</p>
+      
+      <h3>Probes</h3>
 
+<p>
+      Sean
+            <label for="sn-probe" class="margin-toggle
+        sidenote-number"></label> <input type="checkbox"
+        id="sn-probe" class="margin-toggle"/>
+        <span class="sidenote">
+          Sean McDirmid, <a href="http://research.microsoft.com/apps/pubs/default.aspx?id=189802">Usable Live Programming</a>, <em>SPLASH Onward!</em>, 2013.
+        </span>
+
+
+      Bret
+      <label for="sn-bret" class="margin-toggle
+        sidenote-number"></label> <input type="checkbox"
+        id="sn-bret" class="margin-toggle"/>
+        <span class="sidenote">
+          Bret Victor, <a href="https://vimeo.com/36579366">Inventing on Principle</a>, CUSEC, 2012.
+        </span>
+</p>
+      <div id="editor_probes" style="margin-top: 0px; width: 500px; height: 206px; margin-left: 0px;">
 function binarySearch(key, array) {
     run({key: 'd', array: ['a', 'b', 'c', 'e', 'f']});
 
@@ -91,20 +169,40 @@ function binarySearch(key, array) {
     p(result, [-1])
     return result;
 }
-</pre>
-        </div>
+      </div>
 
+
+    </section>
+    
+    <section>
+      <h2>Implementing Live Literals</h2>
+
+      <p>
+        Parsing with accurate source locations.
+        Origin tracking for probes.
+      </p>
         
 	
-    </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
-    var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/eclipse");
-    editor.session.setMode("ace/mode/javascript");
-    editor.session.setOption("useWorker", false);
-    editor.getSession().on('change', changeHandler(editor));
+    var editorTests = ace.edit("editor_tests");
+    editorTests.setTheme("ace/theme/eclipse");
+    editorTests.session.setMode("ace/mode/javascript");
+    editorTests.session.setOption("useWorker", false);
+    editorTests.getSession().on('change', changeHandler(editorTests));
+
+    var editorSheets = ace.edit("editor_sheets");
+    editorSheets.setTheme("ace/theme/eclipse");
+    editorSheets.session.setMode("ace/mode/javascript");
+    editorSheets.session.setOption("useWorker", false);
+    editorSheets.getSession().on('change', changeHandler(editorSheets));
+
+
+    var editorProbes = ace.edit("editor_probes");
+    editorProbes.setTheme("ace/theme/eclipse");
+    editorProbes.session.setMode("ace/mode/javascript");
+    editorProbes.session.setOption("useWorker", false);
+    editorProbes.getSession().on('change', changeHandler(editorProbes));
 </script>
 
 
