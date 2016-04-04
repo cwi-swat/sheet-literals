@@ -32,7 +32,7 @@
 <body>
   <article>
     <h1>Live Literals</h1>
-    <p class="subtitle">Felienne Hermans, Tijs van der Storm</p>
+    <p class="subtitle">Tijs van der Storm, Felienne Hermans</p>
 
     <blockquote>
       Live programming environments improve programmer experience by
@@ -120,8 +120,8 @@
       <input type="checkbox" id="sn-probe" class="margin-toggle"/>
         <span class="sidenote">
           Sean
-          McDirmid, <a href="http://research.microsoft.com/apps/pubs/default.aspx?id=189802">Usable
-          Live Programming</a>, <em>SPLASH Onward!</em>, 2013.
+          McDirmid, <a href="http://dx.doi.org/10.1145/2509578.2509585">Usable
+          Live Programming</a>, <em>Proceedings of the 2013 ACM international symposium on New ideas, new paradigms, and reflections on programming & software (Onward!'13)</em>, pp. 53&ndash;62, 2013.
         </span>
 , which are basically print-statements on steroids.  The paper is
       concluded by briefly reflecting on implementation concerns and
@@ -131,7 +131,7 @@
       <h3>Live Literals: Syntactic Real-Estate for Direct Manipulation and Immediate Feedback</h3>
 
       <p>
-The more general concept of live text has been introduced by Hancock
+The more general concept of live text has been coined by Hancock
 in his PhD thesis<label for="sn-hancock" class="margin-toggle
 sidenote-number"></label> <input type="checkbox" id="sn-hancock"
 class="margin-toggle"/>
@@ -143,42 +143,55 @@ class="margin-toggle"/>
         programming language literals.
       </p>      
       <p>
-        Ironically, literal expressions represent  a mostly overlooked part of  programming languages, and almost taken for granted. 
-        All programming languages have them, from the atomic integer, string and boolean literals, to composite literals for representing lists (Lisp), arrays (Ruby, Python, etc.), or objects (Javascript, Newtonscript).
+        Ironically, literal expressions represent a mostly overlooked part of  programming languages, and almost taken for granted. 
+        All programming languages have them, from the atomic integer, string and boolean literals, to composite literals for representing lists (Lisp), arrays (Ruby, Python, etc.), objects (Javascript, Newtonscript), or XML documents (Scala).
         Normally, literals represent <em>static</em> data, for instance to initialize parts of a computation. They are static, because they are part of the source code which is not assumed to change at run time.
         </p>
 
       <p>
-        Live literals are different. Instead of representing static inputs to some computation, live literals are input and output ports for dynamic data.
-        Editing a literal may trigger a computation at edit time, the result of which will be fed back into the source code, at a different location. 
+        Live literals are different. Instead of representing static inputs to some computation, live literals are input and output ports for dynamic data, <em>at edit time</em>.
+        Editing a literal may trigger a computation, the result of which will be instantaneously fed back into the source code, at a different location. 
         One literal's input feeds back into another literal's output. 
         As a result, instead of a serial script for the
         computer to execute, the text itself becomes as interactive as
         a user interface.
         </p>
 
-      <p>Motvation: sharing, persistence, versioning, copy-paste.  No
-        separate views: minimize distance.  Single language, in the
-        old days: command language vs programming language.  In 1985,
-        Heering and Klint argued for integrating a programming
-        environments command languages and programming
-        language.<label for="sn-mono" class="margin-toggle
+      <p>But why would this be relevant or even useful?
+        A first motivation for live literals is simply &#8220;less is more&#8221;.
+        Live literals are  part of the primary artifact of the working programmer, the source code. There is no need for separate panels, views or popups, which divert the programmer's attention from the actual source code.
+        Consequently, live literals promises a significantly simpler model of the IDE as a whole, since part of the traditional IDE services are taken over by the source code itself.
+        Finally, the representation through data literals entails that the language of feedback is the same as the language of code, which again simplifies things considerably.
+                In a sense, live literals provide an integration similar to the integration of command language and programming language<label for="sn-mono" class="margin-toggle
         sidenote-number"></label> <input type="checkbox" id="sn-mono"
         class="margin-toggle"/>
         <span class="sidenote">
-          Jan Heering, Paul Klint, <a href="http://dx.doi.org/10.1145/3318.3321">Towards Monolingual Programming Environments</a>, <em>ACM Transactions on Programming Languages and Systems</em>, Volume 7 Issue 2, April 1985.
-        </span> However, they did not consider the option of using source code as output medium as well. 
-
-        Composing with existing language constructs and abstractions.
+          Jan Heering and Paul Klint, <a href="http://dx.doi.org/10.1145/3318.3321">Towards Monolingual Programming Environments</a>, <em>ACM Transactions on Programming Languages and Systems</em>, Volume 7 Issue 2, April 1985.
+        </span>: one language is simpler to deal with than multiple languages.
+        We conjecture that live literals improve feedback, paying the minimum cost in terms of cognitive distance and representation impedance mismatch, virtually eliminating all context switching.
       </p>
+
+      <p>Another benefit of live literals is that reifying input and output data as part of the source code allows this information to be shared. For instance, just like ordinary code, code with live literals can be copy-pasted, persisted on disk, and versioned using a configuration management tool.
+        This will be helpful in (online) collaboration settings, where collaborators do not have to follow elaborate instruction to reproduce certain situations within their own workspace.
+      </p>
+
       <p>
-        Below: special case certain Javascript idioms, to be interpreted by the IDE as live literals. Note that the source code is just the source code and runs perfectly fine without the liveness. The special cased methods simply evaluate as ordinary code, possibly have no effect at all, if the primary purpose was increased liveness. 
+        As a final potential benefit of live literals as opposed to separate IDE views is that they are amenable to standard programming abstractions. Since live literals are part of ordinary expressions and statements, they can partake in conditional, looping control-flow, or even functional abstraction. This enables patterns of use hitherto unforeseen, since the user interface of IDEs typically provides only predefined visualizations. This flexibility can be seen as analogous to the Smalltalk <span class="code">self halt.</span> statement to trigger a breakpoint<label for="sn-halt" class="margin-toggle
+        sidenote-number"></label> <input type="checkbox" id="sn-halt"
+        class="margin-toggle"/>
+        <span class="sidenote">
+          <a href="http://wiki.squeak.org/squeak/2131">Debugger</a>, Squeak Wiki</span>
+        . Since this is an ordinary statement, a conditional breakpoint is simply the same statement wrapped in a conditional: <span class="code">cond ifTrue:[self halt.]</span>. No special support is required in the IDE. Although we have not explored this new power fully, we expect this provides an additional level of flexibility for improving how we interact with our source code.
         </p>
       
     </section>
 
     <section id="liveliterals">
       <h2>Exploring Live literals</h2>
+
+            <p>
+        Below: special case certain Javascript idioms, to be interpreted by the IDE as live literals. Note that the source code is just the source code and runs perfectly fine without the liveness. The special cased methods simply evaluate as ordinary code, possibly have no effect at all, if the primary purpose was increased liveness. 
+        </p>
 
       <h3>Examples and Tests</h3>
 
@@ -304,6 +317,7 @@ var grades = sheet([
         <h2>Outlook: Towards Live Text</h2>
 
         <p>
+          limitations: only feedback, which can be represented as literal. 
           Live literals are only the first step towards interactive source code, or live text. 
           <ul>
             <li>REPL
