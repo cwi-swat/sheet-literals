@@ -73,12 +73,11 @@
       <p>
       We introduce <em>live literals</em>: literal data expressions in
       the source code which are updated continuously while the code is
-      executed. The archetypical example of a literal is capture in the following snippet of code:
+      executed or in reaction to program edit by the programmer. The archetypical example of live literals is captured in the following snippet of code:
       <span class="code">
         doIt("1 + 2", 3);
       </span>
-      Applying the concept of live literals to the doIt function could
-      mean the following.  Whenever the the programmer edits the first
+      Whenever the the programmer edits the first
       argument, the second argument is replaced with a literal
       rendering of the result of evaluating the quoted code.  For
       instance, changing <span class="code">"1 + 2"</span>
@@ -90,14 +89,19 @@
       <input type="checkbox" id="sn-direct" class="margin-toggle"/>
       <span class="sidenote">
         	B. Shneiderman, <a href="http://dx.doi.org/10.1109/MC.1983.1654471">Direct Manipulation: A Step Beyond Programming Languages</a>, <em>Computer</em>, Volume 16 , Issue 8, 1983.</span>
-      input data from within the code, as well as receive immediate (output) feedback within the code.
+      input data from within the code, as well as receive immediate feedback about their actions, also within the code<label for="sn-gulf" class="margin-toggle sidenote-number"></label>
+      <input type="checkbox" id="sn-gulf" class="margin-toggle"/>
+      <span class="sidenote">
+        Henry Lieberman and Christopher Fry, <a href="http://dx.doi.org/10.1145/223904.223969">Bridging the gulf between code and behavior in programming</a>, <em>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (CHI'95)</em>, pp. 480&ndash;486, 1995.
+        </span>.
+      
       </p>
 
       <p>
       As a result, the programmer enjoys immediate feedback
       right from the place where it is most relevant, without having
       to switch to different windows or panels. Furthermore, because
-      live literals are really just source code, the additional
+      live literals are really just source code, the provided input and computed
       feedback can be copy-pasted, stored, versioned, and shared at
       will.  Finally, since live literals live inside ordinary
       statements and expressions, they play well with ordinary
@@ -124,7 +128,7 @@
       sketching an outlook for further work.
       </p>
       
-      <h3>Live Literals</h3>
+      <h3>Live Literals: Syntactic Real-Estate for Direct Manipulation and Immediate Feedback</h3>
 
       <p>
 The more general concept of live text has been introduced by Hancock
@@ -134,20 +138,23 @@ class="margin-toggle"/>
         <span class="sidenote">Christopher Hancock, <em>Real-time
         programming and the big ideas of computational literacy</em>,
         MIT, 2003</span>.  Live literals can be seen as first level of
-        live text where the interaction between programmer, and the
-        programming environment is restricted to..
-</p>      
+        live text where the interaction between programmer and
+        programming environment is focused on data, as represented by
+        programming language literals.
+      </p>      
       <p>
-        Literals are data. Normally: just static and constant inputs
-        to computation, for instance to initialize. Mostly: atomic,
-        like int, bool, string, but also composite: list (Lisp), array
-        (Ruby, Python etc.), or object (JS, newtonscript).  Live
-        literals changes the behavior: dynamic (e.g., data literals =
-        data entry), and two-way: not only can you provide inputs, but
-        results of computation may be fed back into the source code
-        as <em>output</em>.  Instead of a serial script for the
-        compute to execute, the text becomes almost as interactive as
-        a proper user interface.
+        Ironically, literal expressions represent  a mostly overlooked part of  programming languages, and almost taken for granted. 
+        All programming languages have them, from the atomic integer, string and boolean literals, to composite literals for representing lists (Lisp), arrays (Ruby, Python, etc.), or objects (Javascript, Newtonscript).
+        Normally, literals represent <em>static</em> data, for instance to initialize parts of a computation. They are static, because they are part of the source code which is not assumed to change at run time.
+        </p>
+
+      <p>
+        Live literals are different. Instead of representing static inputs to some computation, live literals are input and output ports for dynamic data.
+        Editing a literal may trigger a computation at edit time, the result of which will be fed back into the source code, at a different location. 
+        One literal's input feeds back into another literal's output. 
+        As a result, instead of a serial script for the
+        computer to execute, the text itself becomes as interactive as
+        a user interface.
         </p>
 
       <p>Motvation: sharing, persistence, versioning, copy-paste.  No
