@@ -129,19 +129,6 @@
       </p>
       
       <h3>Live Literals: Syntactic Real-Estate for Direct Manipulation and Immediate Feedback</h3>
-
-      <p>
-The more general concept of live text has been coined by Hancock
-in his PhD thesis<label for="sn-hancock" class="margin-toggle
-sidenote-number"></label> <input type="checkbox" id="sn-hancock"
-class="margin-toggle"/>
-        <span class="sidenote">Christopher Hancock, <em>Real-time
-        programming and the big ideas of computational literacy</em>,
-        MIT, 2003</span>.  Live literals can be seen as first level of
-        live text where the interaction between programmer and
-        programming environment is focused on data, as represented by
-        programming language literals.
-      </p>      
       <p>
         Ironically, literal expressions represent a mostly overlooked part of  programming languages, and almost taken for granted. 
         All programming languages have them, from the atomic integer, string and boolean literals, to composite literals for representing lists (Lisp), arrays (Ruby, Python, etc.), objects (Javascript, Newtonscript), or XML documents (Scala).
@@ -161,13 +148,7 @@ class="margin-toggle"/>
         A first motivation for live literals is simply &#8220;less is more&#8221;.
         Live literals are  part of the primary artifact of the working programmer, the source code. There is no need for separate panels, views or popups, which divert the programmer's attention from the actual source code.
         Consequently, live literals promises a significantly simpler model of the IDE as a whole, since part of the traditional IDE services are taken over by the source code itself.
-        Finally, the representation through data literals entails that the language of feedback is the same as the language of code, which again simplifies things considerably.
-                In a sense, live literals provide an integration similar to the integration of command language and programming language<label for="sn-mono" class="margin-toggle
-        sidenote-number"></label> <input type="checkbox" id="sn-mono"
-        class="margin-toggle"/>
-        <span class="sidenote">
-          Jan Heering and Paul Klint, <a href="http://dx.doi.org/10.1145/3318.3321">Towards Monolingual Programming Environments</a>, <em>ACM Transactions on Programming Languages and Systems</em>, Volume 7 Issue 2, April 1985.
-        </span>: one language is simpler to deal with than multiple languages.
+        Finally, the representation through data literals entails that the language of feedback is the same as the language of code, which again simplifies things considerably: one language is simpler to deal with than multiple languages.
         We conjecture that live literals improve feedback, paying the minimum cost in terms of cognitive distance and representation impedance mismatch, virtually eliminating all context switching.
       </p>
 
@@ -178,10 +159,8 @@ class="margin-toggle"/>
       <p>
         As a final potential benefit of live literals as opposed to separate IDE views is that they are amenable to standard programming abstractions. Since live literals are part of ordinary expressions and statements, they can partake in conditional, looping control-flow, or even functional abstraction. This enables patterns of use hitherto unforeseen, since the user interface of IDEs typically provides only predefined visualizations. This flexibility can be seen as analogous to the Smalltalk <span class="code">self halt.</span> statement to trigger a breakpoint<label for="sn-halt" class="margin-toggle
         sidenote-number"></label> <input type="checkbox" id="sn-halt"
-        class="margin-toggle"/>
-        <span class="sidenote">
-          <a href="http://wiki.squeak.org/squeak/2131">Debugger</a>, Squeak Wiki</span>
-        . Since this is an ordinary statement, a conditional breakpoint is simply the same statement wrapped in a conditional: <span class="code">cond ifTrue:[self halt.]</span>. No special support is required in the IDE. Although we have not explored this new power fully, we expect this provides an additional level of flexibility for improving how we interact with our source code.
+        class="margin-toggle"/><span class="sidenote">
+          <a href="http://wiki.squeak.org/squeak/2131">Debugger</a>, Squeak Wiki</span>. Since this is an ordinary statement, a conditional breakpoint is simply the same statement wrapped in a conditional: <span class="code">cond ifTrue:[self halt.]</span>. No special support is required in the IDE. Although we have not fully explored this new power, we expect this to provide an additional level of flexibility for improving how we interact with our source code.
         </p>
       
     </section>
@@ -262,12 +241,7 @@ var grades = sheet([
       </figure>
 
 <p>
-        Bret has two windows, source code left, execution data on the right.<label for="sn-bret" class="margin-toggle
-        sidenote-number"></label> <input type="checkbox"
-        id="sn-bret" class="margin-toggle"/>
-        <span class="sidenote">
-          Bret Victor, <a href="https://vimeo.com/36579366">Inventing on Principle</a>, CUSEC, 2012.
-        </span>
+        Bret has two windows, source code left, execution data on the right.
         Here we have just one view, the source code which acts as both.
         Probes are just represented using a method call "p". 
 </p>
@@ -305,7 +279,9 @@ var grades = sheet([
     </section>
     
     <section>
-      <h2>Implementing Live Literals</h2>
+      <h2>Discussion and Outlook</h2>
+
+      <h3>Implementing Live Literals</h3>
 
       <p>
         Parsing with accurate source locations.
@@ -313,16 +289,50 @@ var grades = sheet([
         Pretty printing of added code.
       </p>
 
-      <section>
-        <h2>Outlook: Towards Live Text</h2>
+
+      <h3>Related Work</h3>
+      <p>
+        Smalltalk: but we propose bring IDE closer to source code, whereas in smalltalk de direction is the other way round: there is only IDE, and source code proper is limited to actual method bodies.
+        In a sense, live literals provide an integration similar to the integration of command language and programming language<label for="sn-mono" class="margin-toggle
+        sidenote-number"></label> <input type="checkbox" id="sn-mono"
+        class="margin-toggle"/>
+        <span class="sidenote">
+          Jan Heering and Paul Klint, <a href="http://dx.doi.org/10.1145/3318.3321">Towards Monolingual Programming Environments</a>, <em>ACM Transactions on Programming Languages and Systems</em>, Volume 7, Issue 2, pp. 183&ndash;213, 1985.
+        </span>.
+        of which the Smalltalk and Lisp provide the typical examples. However, actually changing the source code itself to provide feedback is not part of this story. 
+        </p>
+
+      <p>
+The more general concept of live text has been coined by Hancock
+in his PhD thesis<label for="sn-hancock" class="margin-toggle
+sidenote-number"></label> <input type="checkbox" id="sn-hancock"
+class="margin-toggle"/>
+        <span class="sidenote">Christopher Hancock, <em>Real-time
+        programming and the big ideas of computational literacy</em>,
+        MIT, 2003</span>.  Live literals can be seen as first level of
+        live text where the interaction between programmer and
+        programming environment is focused on data, as represented by
+        programming language literals.
+      </p>      
+
+
+      <p>
+        Full obliteration of the distiction between source code an GUI is represented by programming systems based on structure editing (or projectional), like MPS<label for="sn-mps" class="margin-toggle
+sidenote-number"></label> <input type="checkbox" id="sn-mps"
+class="margin-toggle"/>
+        <span class="sidenote">Jetbrains, <a href="https://www.jetbrains.com/mps/">Meta Programming System (MPS)</a></span>. Such systems represent the opposite end of the spectrum regarding integration: there is no source code at all, the only interface is the graphical user interface.
+        Although this provides arbitrary freedom to mix-and-match different notations, views and languages, the benefits of sharing and maintaing code using regular, textual tools are lost. 
+        </p>
+      
+        <h3>Outlook: Towards Live Text</h3>
 
         <p>
           limitations: only feedback, which can be represented as literal. 
           Live literals are only the first step towards interactive source code, or live text. 
           <ul>
             <li>REPL
-            <li>Refactoring
-            <li>Debugger (cf. Smalltalk debugger statement)
+            <li>Changing code with code Refactoring
+            <li>New syntax (e.g. textual stack frame?)
           </ul>
           </p>
         
