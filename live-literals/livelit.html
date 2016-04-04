@@ -65,6 +65,22 @@
       <p>
         Literals are data. Normally: just static and constant inputs to computation, for instance to initialize. Mostly: atomic, like int, bool, string, but also composite: list (Lisp), array (Ruby, Python etc.), or object (JS, newtonscript).
         Live literals changes the behavior: dynamic (e.g., data literals = data entry), and two-way: not only can you provide inputs, but results of computation may be fed back into the source code as <em>output</em>.
+        Instead of a serial script for the compute to execute, the text becomes almost as interactive as a proper user interface.
+        </p>
+
+      <p>Motvation: sharing, persistence, versioning, copy-paste.
+        No separate views: minimize distance.
+        Single language, in the old days: command language vs programming language.
+               <label for="sn-mono" class="margin-toggle
+        sidenote-number"></label> <input type="checkbox"
+        id="sn-mono" class="margin-toggle"/>
+        <span class="sidenote">
+          Jan Heering, Paul Klint, <a href="http://dx.doi.org/10.1145/3318.3321">Towards Monolingual Programming Environments</a>, <em>ACM Transactions on Programming Languages and Systems</em>, Volume 7 Issue 2, April 1985.
+        </span>
+
+      </p>
+      <p>
+        Below: special case certain Javascript idioms, to be interpreted by the IDE as live literals. Note that the source code is just the source code and runs perfectly fine without the liveness. The special cased methods simply evaluate as ordinary code, possibly have no effect at all, if the primary purpose was increased liveness. 
         </p>
       
     </section>
@@ -86,6 +102,12 @@ function add(x, y) {
   return x + y;
 }
   </div>
+
+      <p>
+        <span class="marginnote">
+          TODO: need more fun example than add.
+        </span>
+        </p>
 
       <h3>Embedding Spreadsheets</h3>
 
@@ -127,15 +149,22 @@ var grades = sheet([
         <span class="sidenote">
           Sean McDirmid, <a href="http://research.microsoft.com/apps/pubs/default.aspx?id=189802">Usable Live Programming</a>, <em>SPLASH Onward!</em>, 2013.
         </span>
+</p>
 
+        <figure>
+        <label for="mn-bret" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-bret" class="margin-toggle"/><span class="marginnote">From Bret Victor, <a href="https://vimeo.com/36579366">Inventing on Principle</a>, 23th minute, CUSEC, 2012</span>
+        <img src="bret.png"/>
+      </figure>
 
-      Bret
-      <label for="sn-bret" class="margin-toggle
+<p>
+        Bret has two windows, source code left, execution data on the right.<label for="sn-bret" class="margin-toggle
         sidenote-number"></label> <input type="checkbox"
         id="sn-bret" class="margin-toggle"/>
         <span class="sidenote">
           Bret Victor, <a href="https://vimeo.com/36579366">Inventing on Principle</a>, CUSEC, 2012.
         </span>
+        Here we have just one view, the source code which acts as both.
+        Probes are just represented using a method call "p". 
 </p>
       <div id="editor_probes" style="margin-top: 0px; width: 500px; height: 206px; margin-left: 0px;">
 function binarySearch(key, array) {
@@ -180,8 +209,23 @@ function binarySearch(key, array) {
       <p>
         Parsing with accurate source locations.
         Origin tracking for probes.
+        Pretty printing of added code.
       </p>
+
+
+      <section>
+        <h2>Outlook: Towards Live Text</h2>
+
+        <p>
+          Live literals are only the first step towards interactive source code, or live text. 
+          <ul>
+            <li>REPL
+            <li>Refactoring
+            <li>Debugger (cf. Smalltalk debugger statement)
+          </ul>
+          </p>
         
+       
 	
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
