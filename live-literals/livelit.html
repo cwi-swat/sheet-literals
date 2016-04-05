@@ -176,10 +176,12 @@
 
       <p>
         A benefit of live programming system is that it is easy to detect mistakes, as the data as well as the code are in one view. With Live Literals, we can also implement light weight unit tests, by adding a 'should' field to classes. A result is then added indicating whether or not the method fulfills the specification.
-</p>
-<div id="editor_tests" style="margin-top: 0px; width: 500px; height: 216px; margin-left: 0px;">function factors(n) {
+      </p>
+        <figure>
+          <label for="mn-tests" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-tests" class="margin-toggle"/><span class="marginnote"><em>Live examples and tests</em>. Change the value of the <em>n</em> input parameter in the test literal and observe that the <em>result</em> output entry is updated. A <em>should</em> entry changes the literal to a test literal, and <em>result</em> indicates success or failure.</span>
+          <div id="editor_tests" style="margin-top: 0px; width: 500px; height: 216px; margin-left: 0px;">function factors(n) {
   test([
-    {n: 0, should: [], result: true},
+    {n: 0, result: []},
     {n: 4, should: [1,4,2], result: true}
   ]);
   var fs = [];
@@ -190,6 +192,9 @@
     }
   return fs;
 }</div>
+
+      </figure>
+      
 
       <p>
         <span class="marginnote">
