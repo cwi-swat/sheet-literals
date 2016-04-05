@@ -179,7 +179,7 @@
       </p>
         <figure>
           <label for="mn-tests" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-tests" class="margin-toggle"/><span class="marginnote"><em>Live examples and tests</em>. Change the value of the <em>n</em> input parameter in the test literal and observe that the <em>result</em> output entry is updated. A <em>should</em> entry changes the literal to a test literal, and <em>result</em> indicates success or failure.</span>
-          <div id="editor_tests" style="background-color: #fffff8; margin-top: 0px; width: 500px; height: 216px; margin-left: 0px;">function factors(n) {
+          <div id="editor_tests" style="background-color: #fffff8; margin-top: 0px; width: 500px; height: 266px; margin-left: 0px;">function factors(n) {
   test([
     {n: 0, result: []},
     {n: 4, should: [1,4,2], result: true}
@@ -208,7 +208,7 @@ In the example below, we want to calculate the average of students in our class,
 
 <figure>      
         <label for="mn-sheet" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-sheet" class="margin-toggle"/><span class="marginnote"><em>Embedded spreadsheets in code</em>. The grades sheet shows both input data (lab and exam) and computed values (classAvg and avg). Changing input data or the cell functions triggers updating the sheet.</span>
-      <div id="editor_sheets" style="background-color: #fffff8; margin-top: 0px; width: 500px; height: 250px; margin-left: 0px;">cell(function avg(sheet, lab, exam) {
+      <div id="editor_sheets" style="background-color: #fffff8; margin-top: 0px; width: 500px; height: 266px; margin-left: 0px;">cell(function avg(sheet, lab, exam) {
   return (lab + exam) / 2;
 });
 
@@ -240,7 +240,9 @@ var grades = sheet([
         Here we have just one view, the source code which acts as both.
         Probes are just represented using a method call "p". 
 </p>
-<div id="editor_probes" style="background-color: #fffff8; margin-top: 0px; width: 500px; height: 470px; margin-left: 0px;">function binarySearch(key, array) {
+<figure>
+  <label for="mn-probe" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-probe" class="margin-toggle"/><span class="marginnote"><em>Probes</em>. The run command at the start of a method executes the current method with the provide input data. The values of expressions given to p is shown in the array of the second argument. Within loops, p shows the succesive values of the expressions.</span>
+<div id="editor_probes" style="background-color: #fffff8; margin-top: 0px; width: 550px; height: 500px; margin-left: 0px;">function binarySearch(key, array) {
     run({key: 'g', array: ['a', 'b', 'c', 'd', 'e', 'f']});
 
     var low = 0; 
@@ -256,20 +258,16 @@ var grades = sheet([
         p(mid, [2,4,5]);
         p(value, ["c","e","f"]);
 
-        if (value < key) {
+        if (value < key)
             low = mid + 1; 
-        }
-        else if (value > key) {
+        else if (value > key)
             high = mid - 1;
-        }
-        else {
+        else
             return mid;
-        }
    }
    return -1;
-}
-      </div>
-
+}</div>
+</figure>
 
     </section>
     
@@ -341,13 +339,19 @@ class="margin-toggle"/>
     editorTests.session.setMode("ace/mode/javascript");
     editorTests.session.setOption("useWorker", false);
     editorTests.getSession().on('change', changeHandler(editorTests));
-
+  editorTests.setOptions({
+  fontSize: "11pt"
+  });
+  
     var editorSheets = ace.edit("editor_sheets");
     editorSheets.renderer.setShowGutter(false);
     editorSheets.setTheme("ace/theme/eclipse");
     editorSheets.session.setMode("ace/mode/javascript");
     editorSheets.session.setOption("useWorker", false);
     editorSheets.getSession().on('change', changeHandler(editorSheets));
+  editorSheets.setOptions({
+  fontSize: "11pt"
+  });
 
 
     var editorProbes = ace.edit("editor_probes");
@@ -355,7 +359,11 @@ class="margin-toggle"/>
     editorProbes.setTheme("ace/theme/eclipse");
     editorProbes.session.setMode("ace/mode/javascript");
     editorProbes.session.setOption("useWorker", false);
-    editorProbes.getSession().on('change', changeHandler(editorProbes));
+  editorProbes.getSession().on('change', changeHandler(editorProbes));
+  editorProbes.setOptions({
+  fontSize: "11pt"
+  });
+  
 </script>
 
 
