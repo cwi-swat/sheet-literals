@@ -179,7 +179,7 @@
       </p>
         <figure>
           <label for="mn-tests" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-tests" class="margin-toggle"/><span class="marginnote"><em>Live examples and tests</em>. Change the value of the <em>n</em> input parameter in the test literal and observe that the <em>result</em> output entry is updated. A <em>should</em> entry changes the literal to a test literal, and <em>result</em> indicates success or failure.</span>
-          <div id="editor_tests" style="margin-top: 0px; width: 500px; height: 216px; margin-left: 0px;">function factors(n) {
+          <div id="editor_tests" style="background-color: #fffff8; margin-top: 0px; width: 500px; height: 216px; margin-left: 0px;">function factors(n) {
   test([
     {n: 0, result: []},
     {n: 4, should: [1,4,2], result: true}
@@ -196,12 +196,6 @@
       </figure>
       
 
-      <p>
-        <span class="marginnote">
-          TODO: need more fun example than add.
-        </span>
-        </p>
-
       <h3>Embedding Spreadsheets</h3>
 
       <p>
@@ -211,8 +205,10 @@
       <p>
 In the example below, we want to calculate the average of students in our class, as well as the average of all students.
       </p>
-      
-      <div id="editor_sheets" style="margin-top: 0px; width: 500px; height: 266px; margin-left: 0px;">cell(function avg(sheet, lab, exam) {
+
+<figure>      
+        <label for="mn-sheet" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-sheet" class="margin-toggle"/><span class="marginnote"><em>Embedded spreadsheets in code</em>. The grades sheet shows both input data (lab and exam) and computed values (classAvg and avg). Changing input data or the cell functions triggers updating the sheet.</span>
+      <div id="editor_sheets" style="background-color: #fffff8; margin-top: 0px; width: 500px; height: 250px; margin-left: 0px;">cell(function avg(sheet, lab, exam) {
   return (lab + exam) / 2;
 });
 
@@ -220,14 +216,12 @@ cell(function classAvg(sheet) {
   return avg('avg', sheet);
 });
 
-
 var grades = sheet([
- {student: 'Felienne', lab: 32343, exam: 9, avg: 16176},
- {student: 'Tijs', lab: 10, exam:7.7, avg: 8.85},
- {student: 'Piet', lab: 4, exam:7.7, avg: 5.85},
- {classAvg: 5396.900000000001}
-]);        
-  </div>
+ {classAvg: 8.375},
+ {student: 'James', lab: 9, exam: 9, avg: 9},
+ {student: 'Sean', lab: 8.5, exam: 7, avg: 7.75}
+]);</div>
+</figure>
 
 <p>Explain the example in more detail. Conlude: we get the same behavior as with traditional spreadsheet systems, only the user interface is completely textual.</p>
       
@@ -246,7 +240,7 @@ var grades = sheet([
         Here we have just one view, the source code which acts as both.
         Probes are just represented using a method call "p". 
 </p>
-<div id="editor_probes" style="margin-top: 0px; width: 500px; height: 470px; margin-left: 0px;">function binarySearch(key, array) {
+<div id="editor_probes" style="background-color: #fffff8; margin-top: 0px; width: 500px; height: 470px; margin-left: 0px;">function binarySearch(key, array) {
     run({key: 'g', array: ['a', 'b', 'c', 'd', 'e', 'f']});
 
     var low = 0; 
