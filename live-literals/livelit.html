@@ -177,23 +177,19 @@
       <p>
         A benefit of live programming system is that it is easy to detect mistakes, as the data as well as the code are in one view. With Live Literals, we can also implement light weight unit tests, by adding a 'should' field to classes. A result is then added indicating whether or not the method fulfills the specification.
 </p>
-  <div id="editor_tests" style="margin-top: 0px; width: 500px; height: 206px; margin-left: 0px;">
-function fib(n) {
-    test([
-      {n: 0, should: 1, result: true},
-      {n: 1, should: 3, result: true}
-    ]);
-    if (n == 0) return 1;
-    if (n == 1) return 3;
-    var gp = 1, p = 3, me;
-    for (var i = 2; i < n + 1; i++) {
-        me = 3 * p - gp;
-        gp = p;
-        p = me;
+<div id="editor_tests" style="margin-top: 0px; width: 500px; height: 216px; margin-left: 0px;">function factors(n) {
+  test([
+    {n: 0, should: [], result: true},
+    {n: 4, should: [1,4,2], result: true}
+  ]);
+  var fs = [];
+  for (var i = 1; i <= Math.floor(Math.sqrt(n)); i++)
+    if (n % i === 0) {
+      fs.push(i);
+      if (n / i !== i) fs.push(n / i);
     }
-    return me;
-}
-  </div>
+  return fs;
+}</div>
 
       <p>
         <span class="marginnote">

@@ -188,7 +188,11 @@ function test(specs) {
             }
             var result = func.apply(undefined, args);
             if (s[i].hasOwnProperty('should')) {
-                s[i].result = result === s[i].should;
+                console.log("SHOULD = " + JSON.stringify(s[i].should));
+                console.log("result = " + JSON.stringify(result));                
+                //                s[i].result = result === s[i].should;
+                //UGHL
+                s[i].result = JSON.stringify(result) === JSON.stringify(s[i].should);
             }
             else {
                 s[i].result = result;
@@ -239,11 +243,11 @@ function patchLiteral(ast, val, patch) {
                     if (prop.key.name === k) {
                         if (!prop.value.computed && prop.value.value !== newRow[k]) {
                             console.log('original: ' + prop.value.value);
-                            console.log('new: ' + newRow[k]);
+                            console.log('new in literal: ' + newRow[k]);
                             
                             patch.push({range: prop.value.range,
                                         loc: prop.value.loc,
-                                        value: newRow[k]});
+                                        value: JSON.stringify(newRow[k])});
                         }
                     }
                 }
@@ -260,7 +264,7 @@ function patchLiteral(ast, val, patch) {
                 if (!found) {
                     patch.push({range: [row.range[1] - 1, row.range[1] - 1],
                                 loc: undefined,
-                                value: ', ' + k + ': ' + newRow[k]});
+                                value: ', ' + k + ': ' + JSON.stringify(newRow[k])});
                 }
             }
         }
@@ -299,11 +303,11 @@ function patchSheet(tree, rows) {
                             if (prop.key.name === k) {
                                 if (!prop.value.computed && prop.value.value !== newRow[k]) {
                                     console.log('original: ' + prop.value.value);
-                                    console.log('new: ' + newRow[k]);
-
+                                    var newVal = newRow[k];
+                                    console.log('new: ' + newVal);
                                     patch.push({range: prop.value.range,
                                                 loc: prop.value.loc,
-                                                value: newRow[k]});
+                                                value: newVal});
                                 }
                             }
                         }
