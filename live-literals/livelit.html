@@ -56,17 +56,10 @@
       <h2>Introduction</h2>
 
       <p>
-        Live programming is about improving programmer experience.
-        Bridging the gulf of evaluation and execution (Norman) Direct
-        manipulation (Shneiderman) Eliminate edit-compile cycle
-        (Tanimoto) Shortening feedback loop (Hancock)
-      </p>
-      <p>
-      Existing work has focused on enhancing Integrated Development
-      Environments (IDEs) with additional graphical user interface
-      views and affordances for inspecting and manipulating program
-      code and execution. The source code itself is either taken for
-      granted (example) or literally part of the IDE (Smalltalk).  In
+        Live programming is about improving programmer experience through better feedback and better tools to manipulate code.
+        Often, the responsibility for these additional affordances is on the IDE: the user interface provides separate panels and widgets for inspecting and manipulating program
+      code and execution. The source code itself is more or less taken for
+      granted as being a completely static input artifact.  In
       this work we make a first step towards turning this hierarchy
       upside-down. Instead of proposing further adornments of the IDE,
       we propose to make the source code itself more dynamic and
@@ -100,7 +93,7 @@
       </p>
 
       <p>
-      As a result, the programmer enjoys immediate feedback
+      With live literals, the programmer may enjoy immediate feedback
       right from the place where it is most relevant, without having
       to switch to different windows or panels. Furthermore, because
       live literals are really just source code, the provided input and computed
@@ -117,24 +110,15 @@
       function.  The second exploits Javascript's object literal
       syntax to represent spreadsheets in ordinary Javascript code.
       Finally, we show how live literals can be used to
-      implement <em>probes</em><label for="sn-probe"
-      class="margin-toggle sidenote-number"></label>
-      <input type="checkbox" id="sn-probe" class="margin-toggle"/>
-        <span class="sidenote">
-          Sean
-          McDirmid, <a href="http://dx.doi.org/10.1145/2509578.2509585">Usable
-          Live Programming</a>, <em>Proceedings of the 2013 ACM international symposium on New ideas, new paradigms, and reflections on programming & software (Onward!'13)</em>, pp. 53&ndash;62, 2013.
-        </span>
-, which are basically print-statements on steroids.  The paper is
+      implement <em>probes</em>, which are basically print-statements on steroids.  The paper is
       concluded by briefly reflecting on implementation concerns and
       sketching an outlook for further work.
       </p>
       
       <h3>Live Literals: Syntactic Real-Estate for Direct Manipulation and Immediate Feedback</h3>
       <p>
-        Ironically, literal expressions represent a mostly overlooked part of  programming languages, and almost taken for granted. 
-        All programming languages have them, from the atomic integer, string and boolean literals, to composite literals for representing lists (Lisp), arrays (Ruby, Python, etc.), objects (Javascript, Newtonscript), or XML documents (Scala).
-        Normally, literals represent <em>static</em> data, for instance to initialize parts of a computation. They are static, because they are part of the source code which is not assumed to change at run time.
+        Literal expressions exist in all  programming languages, from the atomic integer, string and boolean literals, to composite literals for representing lists (Lisp), arrays (Ruby, Python, etc.), objects (Javascript, Newtonscript), or XML documents (Scala).
+        Normally, literals represent static aspects of data, for instance to initialize parts of a computation. They are static, because their layout (or value) is determined even before compiling the code, and  code itself is not assumed to change at run time.
         </p>
 
       <p>
@@ -146,6 +130,7 @@
         a user interface.
         </p>
 
+      <h3>Motivation</h3>
       <p>But why would this be relevant or even useful?
         A first motivation for live literals is simply &#8220;less is more&#8221;.
         Live literals are  part of the primary artifact of the working programmer, the source code. There is no need for separate panels, views or popups, which divert the programmer's attention from the actual source code.
@@ -159,10 +144,9 @@
       </p>
 
       <p>
-        As a final potential benefit of live literals as opposed to separate IDE views is that they are amenable to standard programming abstractions. Since live literals are part of ordinary expressions and statements, they can partake in conditional, looping control-flow, or even functional abstraction. This enables patterns of use hitherto unforeseen, since the user interface of IDEs typically provides only predefined visualizations. This flexibility can be seen as analogous to the Smalltalk <span class="code">self halt.</span> statement to trigger a breakpoint<label for="sn-halt" class="margin-toggle
-        sidenote-number"></label> <input type="checkbox" id="sn-halt"
-        class="margin-toggle"/><span class="sidenote">
-          <a href="http://wiki.squeak.org/squeak/2131">Debugger</a>, Squeak Wiki</span>. Since this is an ordinary statement, a conditional breakpoint is simply the same statement wrapped in a conditional: <span class="code">cond ifTrue:[self halt.]</span>. No special support is required in the IDE. Although we have not fully explored this new power, we expect this to provide an additional level of flexibility for improving how we interact with our source code.
+        As a final potential benefit of live literals as opposed to separate IDE views is that they are amenable to standard programming abstractions. Since live literals are part of ordinary expressions and statements, they can partake in conditional, looping control-flow, or even functional abstraction. This enables patterns of use hitherto unforeseen.
+        Traditional IDEs, on the other hand, provide only canned visualizations.
+        Although we have not fully explored this new power, we expect this to provide an additional level of flexibility for improving how we interact with our source code.
         </p>
       
     </section>
@@ -247,7 +231,17 @@ var grades = sheet([
       
       <h3>Probes</h3>
 
-<p>
+      <p>
+        Our final application of live literals is inspired by Bret Victor's influential talk <em>Inventing on Principle</em> and Sean McDirmid's work on probes<label for="sn-probe"
+      class="margin-toggle sidenote-number"></label>
+      <input type="checkbox" id="sn-probe" class="margin-toggle"/>
+        <span class="sidenote">
+          Sean
+          McDirmid, <a href="http://dx.doi.org/10.1145/2509578.2509585">Usable
+          Live Programming</a>, <em>Proceedings of the 2013 ACM international symposium on New ideas, new paradigms, and reflections on programming & software (Onward!'13)</em>, pp. 53&ndash;62, 2013.
+        </span>.
+        The following screen capture of Victor's talk shows two panels. The left shows the code of a function which implements binary search. The right shows the actual values during execution of the local variables of the function. 
+        
 </p>
 
         <figure>
@@ -256,9 +250,7 @@ var grades = sheet([
       </figure>
 
 <p>
-        Bret has two windows, source code left, execution data on the right.
-        Here we have just one view, the source code which acts as both.
-        Probes are just represented using a method call "p". 
+  Our implementation of probes, eliminates the two views, and integrates the display of the runtime values of variables into the source text itself. The following code shows the same binary search function, enhanced with probe statements, indicated by function calls to <span class="code">p</span>.
 </p>
 <figure>
   <label for="mn-probe" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-probe" class="margin-toggle"/><span class="marginnote"><em>Probes</em>. The <span class="code">run</span> command at the start of a method executes the current method with the provide input parameters. The function <span class="code">p</span> shows the runtime value of the first argument in the array of the second argument. Within loops, <span class="code">p</span> shows the succesive values of the expression.</span>
@@ -288,7 +280,11 @@ var grades = sheet([
    return -1;
 }</div>
 </figure>
-
+      <p>
+        The first statement in the function is used to setup an execution context: it provides values for the formal parameters of the function. Within the function, the <span class="code">p</span> function accepts an expression as a first parameter.
+        During execution the (successive) values of the expression are stored, indexed on the source position of the probe itself. The stored values are then put back into the source code as the second argument to <span class="code">p</span>.
+        Note that this kind of probe is already more flexible than a simple view of runtime values of variables: <span class="code">p</span> can be called with arbitrary expressions in the first argument, not just variables.  
+        </p>
     </section>
     
     <section>
