@@ -178,7 +178,10 @@
       <h3>Examples and Tests</h3>
 
       <p>
-        The first application of live literals allows the programmer to explore the behavior of a function definition using live data and live tests. The code below shows a function to compute the factors of integers.         
+        The first application of live literals allows the programmer to explore the behavior of a function definition using live data and live tests, similar to Gilad Bracha's live methods<label for="sn-gilad" class="margin-toggle
+        sidenote-number"></label> <input type="checkbox" id="sn-gilad"
+        class="margin-toggle"/><span class="sidenote">Gilad Bracha, 
+          <a href="http://gbracha.blogspot.nl/2013/04/making-methods-live.html">Making Methods Live</a>, Room 101, April, 2013.</span>. The code below shows a function to compute the factors of integers.         
       </p>
         <figure>
           <label for="mn-tests" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-tests" class="margin-toggle"/><span class="marginnote"><em>Live examples and tests</em>. Change the value of the <em>n</em> input parameter in the test literal and observe that the <em>result</em> output entry is updated. A <em>should</em> entry changes the literal to a test literal, and <em>result</em> indicates success or failure.</span>
@@ -202,7 +205,8 @@
         For instance, the first object literal represents the base case where <span class="code">n</span> is zero. The result field shows that zero does not have any factors. Try changing the constant 0 to another number and observe that the result component changes. 
         The second literal represents a test. In this case, the user provides a <span class="code">should</span> entry, containing the expected result. If this component is present, the test interpreter checks the result of evaluating the function against the expected result, and indicates success or failure of the test in the <span class="code">result</span> entry.
         Again, this result is updated whenever the input or expected output literals are modified. 
-</p>
+      </p>
+
 
       <h3>Embedding Spreadsheets</h3>
 
