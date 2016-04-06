@@ -155,7 +155,7 @@
       <h2>Exploring Live Literals: What You Program is What You See (WYPIWYS)</h2>
 
             <p>
-              Below we discuss three applications of live literals in Javascript: live tests, embedded spreadsheets and probes. The editors give special meaning to certain Javascript function calls containing data literals, and then change the source text of those literals depending on the application. Note that the code is ordinary Javascript: without the live literal IDE support, the code just runs as is, and the special cased function calls simply compute results valid or gracefully degrade into no-ops. The examples are all live, so the reader is encouraged to tinker with the source code and observe what happens.
+              Below we discuss three applications of live literals in Javascript: live examples and tests, embedded spreadsheets, and probes. The editors give special meaning to certain Javascript function calls containing data literals, and then change the source text of those literals depending on the application. Note that the code is ordinary Javascript: without the live literal language support, the code just runs fine, and the special cased function calls simply compute valid results or gracefully degrade into no-ops. The examples are all live, so the reader is encouraged to tinker with the source code and observe what happens.
               
         </p>
 
@@ -196,8 +196,8 @@
 
       <p>
         Spreadsheets are well-known end-user programming environments for managing tabular data and simple computations.
-        One advantage of spreadsheets is their liveness: the grid-based user interface supports directly manipulation of input data, code expressions and the effect of changes  immediately reflected in the grid itself.
-        Live literals support the same style of live programming, but this time directly within the source code instead of a grid-based UI. 
+        One advantage of spreadsheets is their liveness: the grid-based UI supports direct manipulation of input data and code expressions, and the effect of changes is immediately reflected in the UI itself.
+        Live literals can support the model of computation, but this time directly within the source code instead of a grid-based UI. 
         </p>
 
       <p>
@@ -222,11 +222,13 @@ var grades = sheet([
 </figure>
 
       <p>
-        The first two statements define two cell functions using the <span class="code">cell</span> function which is provided by our framework. The first one defines the average of the lab and exam grades. The second one computes the class average over the complete sheet. The library function <span class="code">avg</span> computes the average over a named column (in this case 'avg'). Both cell function get the complete sheet as the first argument.
+        The first two statements define two cell functions using the <span class="code">cell</span> function which is provided by our framework. The first one defines the average of the lab and exam grades. The second one computes the class average over the complete sheet. The library function <span class="code">avg</span> computes the average over a named column (in this case 'avg'). Both cell functions get the complete sheet as the first argument to allow arbitrary computations over a sheet.
       </p>
 
-      <p>The cell functions are automatically applied to the sheet literal created using the <span class="code">sheet</span> function. For every row the available data cells (lab and exam) are matched to the formal parameters of the cell functions, and if there is a match, the computed cell (named after the cell function) is inserted or updated in that row. For instance, the last two rows of the sheet literal contain the avg cell, since both these rows contain lab and exam, as required by the cell function avg. The first row, however, does have these input cells, so does not get the avg cell.
-        In the background, the <span class="code">sheet</span> function computes all dependencies between cells and evaluates the computed cells. The result is then piped back into the editor to reflect the actual state of the sheet. 
+      <p>The variable <span class="code">grades</span> is initialized with a <em>sheet literal</em>, indicated by the <span class="code">sheet</span> function. The sheet literal consists of list of rows, containing object literals with named cells.
+        The  <span class="code">sheet</span> function evaluates the sheet literals by applying cell functions where needed, and returns the resulting object.
+        For every row the available data cells (lab and exam) are matched to the formal parameters of the cell functions, and if there is a match, the computed cell (named after the cell function) is inserted or updated in that row. For instance, the last two rows of the sheet literal contain the avg cell, since both these rows contain lab and exam, as required by the cell function avg. The first row, however, does not have these input cells, so does not get the avg cell.
+        In the background, the <span class="code">sheet</span> function computes all dependencies between cells and evaluates the computed cells. The result is then piped back into the editor to reflect the actual state of the sheet.
         The result is that sheet literals provide the same live behavior as  traditional spreadsheet systems, only the user interface is completely textual.</p>
       
       <h3>Probes</h3>
@@ -240,7 +242,7 @@ var grades = sheet([
           McDirmid, <a href="http://dx.doi.org/10.1145/2509578.2509585">Usable
           Live Programming</a>, <em>Proceedings of the 2013 ACM international symposium on New ideas, new paradigms, and reflections on programming & software (Onward!'13)</em>, pp. 53&ndash;62, 2013.
         </span>.
-        The following screen capture of Victor's talk shows two panels. The left shows the code of a function which implements binary search. The right shows the actual values during execution of the local variables of the function. 
+        The following screen capture of Victor's talk shows two panels. The left shows the code of a function which implements binary search. The right shows the actual values of the local variables of the function while it executes. 
         
 </p>
 
@@ -250,7 +252,7 @@ var grades = sheet([
       </figure>
 
 <p>
-  Our implementation of probes, eliminates the two views, and integrates the display of the runtime values of variables into the source text itself. The following code shows the same binary search function, enhanced with probe statements, indicated by function calls to <span class="code">p</span>.
+  Our implementation of probes eliminates the two views, and integrates the display of the runtime values of variables into the source text itself. The following code shows the same binary search function, enhanced with probe statements, indicated by function calls to <span class="code">p</span>.
 </p>
 <figure>
   <label for="mn-probe" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-probe" class="margin-toggle"/><span class="marginnote"><em>Probes</em>. The <span class="code">run</span> command at the start of a method executes the current method with the provide input parameters. The function <span class="code">p</span> shows the runtime value of the first argument in the array of the second argument. Within loops, <span class="code">p</span> shows the succesive values of the expression.</span>
@@ -281,7 +283,7 @@ var grades = sheet([
 }</div>
 </figure>
       <p>
-        The first statement in the function is used to setup an execution context: it provides values for the formal parameters of the function. Within the function, the <span class="code">p</span> function accepts an expression as a first parameter.
+        The first statement in the function is used to setup the execution context: it provides values for the formal parameters of the function. Within the function, the <span class="code">p</span> function accepts an expression as a first parameter.
         During execution the (successive) values of the expression are stored, indexed on the source position of the probe itself. The stored values are then put back into the source code as the second argument to <span class="code">p</span>.
         Note that this kind of probe is already more flexible than a simple view of runtime values of variables: <span class="code">p</span> can be called with arbitrary expressions in the first argument, not just variables.  
         </p>
