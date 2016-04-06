@@ -211,12 +211,14 @@
       <h3>Embedding Spreadsheets</h3>
 
       <p>
-        Spreadsheets are often used to do simple calculations in which data is summed or multiplied, both within rows are within columns. The benefits of using spreadsheets is that they are easy to use, and live. With Live Literals we can implement such spreadsheet problems.
+        Spreadsheets are well-known end-user programming environments for managing tabular data and simple computations.
+        One advantage of spreadsheets is their liveness: the grid-based user interface supports directly manipulation of input data, code expressions and the effect of changes  immediately reflected in the grid itself.
+        Live literals support the same style of live programming, but this time directly within the source code instead of a grid-based UI. 
         </p>
 
       <p>
-In the example below, we want to calculate the average of students in our class, as well as the average of all students.
-      </p>
+        The code below shows a simple spreadsheet for calculating grade averages and the class average based on lab and exam grades for students. 
+        </p>
 
 <figure>      
         <label for="mn-sheet" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-sheet" class="margin-toggle"/><span class="marginnote"><em>Embedded spreadsheets in code</em>. The grades sheet shows both input data (<span class="code">lab</span> and <span class="code">exam</span>) and computed values (<span class="code">classAvg</span> and <span class="code">avg</span>). Changing the input cells or the cell functions triggers updating the sheet.</span>
@@ -235,7 +237,13 @@ var grades = sheet([
 ]);</div>
 </figure>
 
-<p>Explain the example in more detail. Conlude: we get the same behavior as with traditional spreadsheet systems, only the user interface is completely textual.</p>
+      <p>
+        The first two statements define two cell functions using the <span class="code">cell</span> function which is provided by our framework. The first one defines the average of the lab and exam grades. The second one computes the class average over the complete sheet. The library function <span class="code">avg</span> computes the average over a named column (in this case 'avg'). Both cell function get the complete sheet as the first argument.
+      </p>
+
+      <p>The cell functions are automatically applied to the sheet literal created using the <span class="code">sheet</span> function. For every row the available data cells (lab and exam) are matched to the formal parameters of the cell functions, and if there is a match, the computed cell (named after the cell function) is inserted or updated in that row. For instance, the last two rows of the sheet literal contain the avg cell, since both these rows contain lab and exam, as required by the cell function avg. The first row, however, does have these input cells, so does not get the avg cell.
+        In the background, the <span class="code">sheet</span> function computes all dependencies between cells and evaluates the computed cells. The result is then piped back into the editor to reflect the actual state of the sheet. 
+        The result is that sheet literals provide the same live behavior as  traditional spreadsheet systems, only the user interface is completely textual.</p>
       
       <h3>Probes</h3>
 
