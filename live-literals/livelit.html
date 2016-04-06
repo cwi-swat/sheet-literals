@@ -34,6 +34,7 @@
     <h1>Live Literals</h1>
     <p class="subtitle">Tijs van der Storm, Felienne Hermans</p>
 
+    <p>
     <blockquote>
       Live programming environments improve programmer experience by
       providing views of program execution which are continuously, and
@@ -49,6 +50,7 @@
       using three applications: embedded spreadsheets, live units
       tests, and probes.
     </blockquote>
+    </p>
 
     <section id="intro">
       <h2>Introduction</h2>
@@ -166,16 +168,17 @@
     </section>
 
     <section id="liveliterals">
-      <h2>Exploring Live literals</h2>
+      <h2>Exploring Live Literals: What You Program is What You See (WYPIWYS)</h2>
 
             <p>
-        Below: special case certain Javascript idioms, to be interpreted by the IDE as live literals. Note that the source code is just the source code and runs perfectly fine without the liveness. The special cased methods simply evaluate as ordinary code, possibly have no effect at all, if the primary purpose was increased liveness. 
+              Below we discuss three applications of live literals in Javascript: live tests, embedded spreadsheets and probes. The editors give special meaning to certain Javascript function calls containing data literals, and then change the source text of those literals depending on the application. Note that the code is ordinary Javascript: without the live literal IDE support, the code just runs as is, and the special cased function calls simply compute results valid or gracefully degrade into no-ops. The examples are all live, so the reader is encouraged to tinker with the source code and observe what happens.
+              
         </p>
 
       <h3>Examples and Tests</h3>
 
       <p>
-        A benefit of live programming system is that it is easy to detect mistakes, as the data as well as the code are in one view. With Live Literals, we can also implement light weight unit tests, by adding a 'should' field to classes. A result is then added indicating whether or not the method fulfills the specification.
+        The first application of live literals allows the programmer to explore the behavior of a function definition using live data and live tests. The code below shows a function to compute the factors of integers.         
       </p>
         <figure>
           <label for="mn-tests" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-tests" class="margin-toggle"/><span class="marginnote"><em>Live examples and tests</em>. Change the value of the <em>n</em> input parameter in the test literal and observe that the <em>result</em> output entry is updated. A <em>should</em> entry changes the literal to a test literal, and <em>result</em> indicates success or failure.</span>
@@ -192,9 +195,14 @@
     }
   return fs;
 }</div>
-
       </figure>
-      
+      <p>
+        The <span class="code">test</span> invocation at the beginning describes a fixture for executing <span class="code">factors</span>.
+        The fixture is a plain Javascript array containing object literals specifying input and output of executing <span class="code">factors</span>.
+        For instance, the first object literal represents the base case where <span class="code">n</span> is zero. The result field shows that zero does not have any factors. Try changing the constant 0 to another number and observe that the result component changes. 
+        The second literal represents a test. In this case, the user provides a <span class="code">should</span> entry, containing the expected result. If this component is present, the test interpreter checks the result of evaluating the function against the expected result, and indicates success or failure of the test in the <span class="code">result</span> entry.
+        Again, this result is updated whenever the input or expected output literals are modified. 
+</p>
 
       <h3>Embedding Spreadsheets</h3>
 
@@ -207,7 +215,7 @@ In the example below, we want to calculate the average of students in our class,
       </p>
 
 <figure>      
-        <label for="mn-sheet" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-sheet" class="margin-toggle"/><span class="marginnote"><em>Embedded spreadsheets in code</em>. The grades sheet shows both input data (lab and exam) and computed values (classAvg and avg). Changing input data or the cell functions triggers updating the sheet.</span>
+        <label for="mn-sheet" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-sheet" class="margin-toggle"/><span class="marginnote"><em>Embedded spreadsheets in code</em>. The grades sheet shows both input data (<span class="code">lab</span> and <span class="code">exam</span>) and computed values (<span class="code">classAvg</span> and <span class="code">avg</span>). Changing the input cells or the cell functions triggers updating the sheet.</span>
       <div id="editor_sheets" style="background-color: #fffff8; margin-top: 0px; width: 500px; height: 266px; margin-left: 0px;">cell(function avg(sheet, lab, exam) {
   return (lab + exam) / 2;
 });
@@ -241,7 +249,7 @@ var grades = sheet([
         Probes are just represented using a method call "p". 
 </p>
 <figure>
-  <label for="mn-probe" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-probe" class="margin-toggle"/><span class="marginnote"><em>Probes</em>. The run command at the start of a method executes the current method with the provide input data. The values of expressions given to p is shown in the array of the second argument. Within loops, p shows the succesive values of the expressions.</span>
+  <label for="mn-probe" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-probe" class="margin-toggle"/><span class="marginnote"><em>Probes</em>. The <span class="code">run</span> command at the start of a method executes the current method with the provide input parameters. The function <span class="code">p</span> shows the runtime value of the first argument in the array of the second argument. Within loops, <span class="code">p</span> shows the succesive values of the expression.</span>
 <div id="editor_probes" style="background-color: #fffff8; margin-top: 0px; width: 550px; height: 500px; margin-left: 0px;">function binarySearch(key, array) {
     run({key: 'g', array: ['a', 'b', 'c', 'd', 'e', 'f']});
 
