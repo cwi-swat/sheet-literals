@@ -255,7 +255,7 @@ var grades = sheet([
   Our implementation of probes eliminates the two views, and integrates the display of the runtime values of variables into the source text itself. The following code shows the same binary search function, enhanced with probe statements, indicated by function calls to <span class="code">p</span>.
 </p>
 <figure>
-  <label for="mn-probe" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-probe" class="margin-toggle"/><span class="marginnote"><em>Probes</em>. The <span class="code">run</span> command at the start of a method executes the current method with the provide input parameters. The function <span class="code">p</span> shows the runtime value of the first argument in the array of the second argument. Within loops, <span class="code">p</span> shows the succesive values of the expression.</span>
+  <label for="mn-probe" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-probe" class="margin-toggle"/><span class="marginnote"><em>Probes</em>. The <span class="code">run</span> command at the start of a method executes the current method with the provided input parameters. The function <span class="code">p</span> shows the runtime value of the first argument in the array of the second argument. Within loops, <span class="code">p</span> shows the succesive values of the expression.</span>
 <div id="editor_probes" style="background-color: #fffff8; margin-top: 0px; width: 550px; height: 500px; margin-left: 0px;">function binarySearch(key, array) {
     run({key: 'g', array: ['a', 'b', 'c', 'd', 'e', 'f']});
 
@@ -295,9 +295,16 @@ var grades = sheet([
       <h3>Implementing Live Literals</h3>
 
       <p>
-        Parsing with accurate source locations.
-        Origin tracking for probes.
-        Pretty printing of added code.
+        On the surface live literals are a simple technique to improve the programming experience. Under the hood, however, some tricks are required. Here we discuss how live literals as presented in this document are implemented. At a very high-level, live literals require a dedicated interpreter for the parts of the code that contain the relevant literals. This interpreter is then invoked by the IDE at edit time to compute results and update the editor.
+      </p>
+
+      <p>The first step involves identifying the context of the  live literal in the code. For instance, in the spreadsheet example, the interpreter finds the <span class="code">sheet</span> expression in the abstract syntax tree (AST) of the program. It then evaluates the expression, obtaining the result of the updated sheet. Note that the spreadsheet semantics is implemented as an ordinary library. The live literal interpreter solely acts as a broker between live literals and the source code in the editor. In our current implementation, the expression is evaluated using Javascript's <span class="code">eval</span> function.
+      </p>
+      <p>
+        The source text in the editor is then patched to reflect the new result.  The original AST of the live literal is compared with the new data value that it should represent. Whenever there is a change in a sub tree, the corresponding source fragment is replaced with a textual representation of the new value. The fragment of text to be replaced is retrieved from  accurate source locations on the AST. Whenever new literal data is inserted, a pretty printer ensures that the values are nicely represented in the source text.
+      </p>
+
+      <p>Live literals benefit from additional origin tracking for the live literal expressions. For instance, the executiong of the probe  function  <span class="code">p</span> requires knowledge about where the function call occurs in the source code to accurately store intermediate results. In our Javascript implementation this information is retrieved from the stack trace contained in an exception that is thrown for this particular purpose. We expect that a more systematic approach to providing static soure code origin information at run time will be a key enabler for additional live programming features. 
       </p>
 
 
