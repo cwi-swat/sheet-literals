@@ -87,7 +87,7 @@
       input data from within the code, as well as receive immediate feedback about their actions, also within the code<label for="sn-gulf" class="margin-toggle sidenote-number"></label>
       <input type="checkbox" id="sn-gulf" class="margin-toggle"/>
       <span class="sidenote">
-        Henry Lieberman and Christopher Fry, <a href="http://dx.doi.org/10.1145/223904.223969">Bridging the gulf between code and behavior in programming</a>, <em>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (CHI'95)</em>, pp. 480&ndash;486, 1995.
+        Henry Lieberman and Christopher Fry, <a href="http://dx.doi.org/10.1145/223904.223969">Bridging the gulf between code and behavior in programming</a>, <em>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (CHI&rsquo;95)</em>, pp. 480&ndash;486, 1995.
         </span>.
       
       </p>
@@ -107,7 +107,7 @@
       We illustrate live literals using three applications implemented
       in Javascript. The first allows function be annotated with
       example data to explore and test the result of evaluating a
-      function.  The second exploits Javascript's object literal
+      function.  The second exploits Javascript&rsquo;s object literal
       syntax to represent spreadsheets in ordinary Javascript code.
       Finally, we show how live literals can be used to
       implement <em>probes</em>, which are basically print-statements on steroids.  The paper is
@@ -124,7 +124,7 @@
       <p>
         Live literals are different. Instead of representing static inputs to some computation, live literals are input and output ports for dynamic data, <em>at edit time</em>.
         Editing a literal may trigger a computation, the result of which will be instantaneously fed back into the source code, at a different location. 
-        One literal's input feeds back into another literal's output. 
+        One literal&rsquo;s input feeds back into another literal&rsquo;s output. 
         As a result, instead of a serial script for the
         computer to execute, the text itself becomes as interactive as
         a user interface.
@@ -133,7 +133,7 @@
       <h3>Motivation</h3>
       <p>But why would this be relevant or even useful?
         A first motivation for live literals is simply &#8220;less is more&#8221;.
-        Live literals are  part of the primary artifact of the working programmer, the source code. There is no need for separate panels, views or popups, which divert the programmer's attention from the actual source code.
+        Live literals are  part of the primary artifact of the working programmer, the source code. There is no need for separate panels, views or popups, which divert the programmer&rsquo;s attention from the actual source code.
         Consequently, live literals promises a significantly simpler model of the IDE as a whole, since part of the traditional IDE services are taken over by the source code itself.
         Finally, the representation through data literals entails that the language of feedback is the same as the language of code, which again simplifies things considerably: one language is simpler to deal with than multiple languages.
         We conjecture that live literals improve feedback, paying the minimum cost in terms of cognitive distance and representation impedance mismatch, virtually eliminating all context switching.
@@ -162,7 +162,7 @@
       <h3>Examples and Tests</h3>
 
       <p>
-        The first application of live literals allows the programmer to explore the behavior of a function definition using live data and live tests, similar to Gilad Bracha's live methods<label for="sn-gilad" class="margin-toggle
+        The first application of live literals allows the programmer to explore the behavior of a function definition using live data and live tests, similar to Gilad Bracha&rsquo;s live methods<label for="sn-gilad" class="margin-toggle
         sidenote-number"></label> <input type="checkbox" id="sn-gilad"
         class="margin-toggle"/><span class="sidenote">Gilad Bracha, 
           <a href="http://gbracha.blogspot.nl/2013/04/making-methods-live.html">Making Methods Live</a>, Room 101, April, 2013.</span>. The code below shows a function to compute the factors of integers.         
@@ -222,27 +222,27 @@ var grades = sheet([
 </figure>
 
       <p>
-        The first two statements define two cell functions using the <span class="code">cell</span> function which is provided by our framework. The first one defines the average of the lab and exam grades. The second one computes the class average over the complete sheet. The library function <span class="code">avg</span> computes the average over a named column (in this case 'avg'). Both cell functions get the complete sheet as the first argument to allow arbitrary computations over a sheet.
+        The first two statements define two cell functions using the <span class="code">cell</span> function which is provided by our framework. The first one defines the average of the lab and exam grades. The second one computes the class average over the complete sheet. The library function <span class="code">avg</span> computes the average over a named column (in this case &lsquo;avg&rsquo;). Both cell functions get the complete sheet as the first argument to allow arbitrary computations over a sheet.
       </p>
 
       <p>The variable <span class="code">grades</span> is initialized with a <em>sheet literal</em>, indicated by the <span class="code">sheet</span> function. The sheet literal consists of list of rows, containing object literals with named cells.
         The  <span class="code">sheet</span> function evaluates the sheet literals by applying cell functions where needed, and returns the resulting object.
-        For every row the available data cells (lab and exam) are matched to the formal parameters of the cell functions, and if there is a match, the computed cell (named after the cell function) is inserted or updated in that row. For instance, the last two rows of the sheet literal contain the avg cell, since both these rows contain lab and exam, as required by the cell function avg. The first row, however, does not have these input cells, so does not get the avg cell.
+        For every row the available data cells (<span class="code">lab</span> and <span class="code">exam</span>) are matched to the formal parameters of the cell functions, and if there is a match, the computed cell (named after the cell function) is inserted or updated in that row. For instance, the last two rows of the sheet literal contain the <span class="code">avg</span> cell, since both these rows contain <span class="code">lab</span> and <span class="code">exam</span>, as required by the cell function <span class="code">avg</span>. The first row, however, does not have these input cells, so does not get the <span class="code">avg</span> cell.
         In the background, the <span class="code">sheet</span> function computes all dependencies between cells and evaluates the computed cells. The result is then piped back into the editor to reflect the actual state of the sheet.
         The result is that sheet literals provide the same live behavior as  traditional spreadsheet systems, only the user interface is completely textual.</p>
       
       <h3>Probes</h3>
 
       <p>
-        Our final application of live literals is inspired by Bret Victor's influential talk <em>Inventing on Principle</em> and Sean McDirmid's work on probes<label for="sn-probe"
+        Our final application of live literals is inspired by Bret Victor&rsquo;s influential talk <em>Inventing on Principle</em> and Sean McDirmid&rsquo;s work on probes<label for="sn-probe"
       class="margin-toggle sidenote-number"></label>
       <input type="checkbox" id="sn-probe" class="margin-toggle"/>
         <span class="sidenote">
           Sean
           McDirmid, <a href="http://dx.doi.org/10.1145/2509578.2509585">Usable
-          Live Programming</a>, <em>Proceedings of the 2013 ACM international symposium on New ideas, new paradigms, and reflections on programming & software (Onward!'13)</em>, pp. 53&ndash;62, 2013.
+          Live Programming</a>, <em>Proceedings of the 2013 ACM international symposium on New ideas, new paradigms, and reflections on programming & software (Onward!&rsquo;13)</em>, pp. 53&ndash;62, 2013.
         </span>.
-        The following screen capture of Victor's talk shows two panels. The left shows the code of a function which implements binary search. The right shows the actual values of the local variables of the function while it executes. 
+        The following screen capture of Victor&rsquo;s talk shows two panels. The left shows the code of a function which implements binary search. The right shows the actual values of the local variables of the function while it executes. 
         
 </p>
 
@@ -298,7 +298,7 @@ var grades = sheet([
         On the surface live literals are a simple technique to improve the programming experience. Under the hood, however, some tricks are required. Here we discuss how live literals as presented in this document are implemented. At a very high-level, live literals require a dedicated interpreter for the parts of the code that contain the relevant literals. This interpreter is then invoked by the IDE at edit time to compute results and update the editor.
       </p>
 
-      <p>The first step involves identifying the context of the  live literal in the code. For instance, in the spreadsheet example, the interpreter finds the <span class="code">sheet</span> expression in the abstract syntax tree (AST) of the program. It then evaluates the expression, obtaining the result of the updated sheet. Note that the spreadsheet semantics is implemented as an ordinary library. The live literal interpreter solely acts as a broker between live literals and the source code in the editor. In our current implementation, the expression is evaluated using Javascript's <span class="code">eval</span> function.
+      <p>The first step involves identifying the context of the  live literal in the code. For instance, in the spreadsheet example, the interpreter finds the <span class="code">sheet</span> expression in the abstract syntax tree (AST) of the program. It then evaluates the expression, obtaining the result of the updated sheet. Note that the spreadsheet semantics is implemented as an ordinary library. The live literal interpreter solely acts as a broker between live literals and the source code in the editor. In our current implementation, the expression is evaluated using Javascript&rsquo;s <span class="code">eval</span> function.
       </p>
       <p>
         The source text in the editor is then patched to reflect the new result.  The original AST of the live literal is compared with the new data value that it should represent. Whenever there is a change in a sub tree, the corresponding source fragment is replaced with a textual representation of the new value. The fragment of text to be replaced is retrieved from  accurate source locations on the AST. Whenever new literal data is inserted, a pretty printer ensures that the values are nicely represented in the source text.
@@ -309,19 +309,9 @@ var grades = sheet([
 
 
       <h3>Related Work</h3>
-      <p>
-        Smalltalk: but we propose bring IDE closer to source code, whereas in smalltalk de direction is the other way round: there is only IDE, and source code proper is limited to actual method bodies.
-        In a sense, live literals provide an integration similar to the integration of command language and programming language<label for="sn-mono" class="margin-toggle
-        sidenote-number"></label> <input type="checkbox" id="sn-mono"
-        class="margin-toggle"/>
-        <span class="sidenote">
-          Jan Heering and Paul Klint, <a href="http://dx.doi.org/10.1145/3318.3321">Towards Monolingual Programming Environments</a>, <em>ACM Transactions on Programming Languages and Systems</em>, Volume 7, Issue 2, pp. 183&ndash;213, 1985.
-        </span>.
-        of which the Smalltalk and Lisp provide the typical examples. However, actually changing the source code itself to provide feedback is not part of this story. 
-        </p>
 
-      <p>
-The more general concept of live text has been coined by Hancock
+            <p>
+The more general concept of &ldquo;live text&rdquo; has been coined by Hancock
 in his PhD thesis<label for="sn-hancock" class="margin-toggle
 sidenote-number"></label> <input type="checkbox" id="sn-hancock"
 class="margin-toggle"/>
@@ -335,26 +325,60 @@ class="margin-toggle"/>
 
 
       <p>
-        Full obliteration of the distiction between source code an GUI is represented by programming systems based on structure editing (or projectional), like MPS<label for="sn-mps" class="margin-toggle
+        Live literals are a step towards integrating aspects of the IDE with the source code of the program.
+        The idea of bringing IDE and code closer is not a new idea.
+        Case in point is the Smalltalk language, which cannot really be separated from the IDE.
+        Smalltalk-like systems, however, represent the integration in the the direction: the programmer  mostly interacts with IDE, and source code proper is limited to actual method bodies.
+        In the other direction, there has been early work to explore the integration of command language and programming language<label for="sn-mono" class="margin-toggle
+        sidenote-number"></label> <input type="checkbox" id="sn-mono"
+        class="margin-toggle"/>
+        <span class="sidenote">
+          Jan Heering and Paul Klint, <a href="http://dx.doi.org/10.1145/3318.3321">Towards Monolingual Programming Environments</a>, <em>ACM Transactions on Programming Languages and Systems</em>, Volume 7, Issue 2, pp. 183&ndash;213, 1985.
+        </span>.
+        Today, we tend not to make the distinction between command language and programming language anymore, but, ironically, live literals almost bring back the distinction by making the source code interactive, like a syntactically structured command line interface.
+        </p>
+
+
+      <p>
+        Full obliteration of the distinction between source code an GUI is represented by programming systems based on structure editing (or projectional), like MPS<label for="sn-mps" class="margin-toggle
 sidenote-number"></label> <input type="checkbox" id="sn-mps"
 class="margin-toggle"/>
         <span class="sidenote">Jetbrains, <a href="https://www.jetbrains.com/mps/">Meta Programming System (MPS)</a></span>. Such systems represent the opposite end of the spectrum regarding integration: there is no source code at all, the only interface is the graphical user interface.
         Although this provides arbitrary freedom to mix-and-match different notations, views and languages, the benefits of sharing and maintaining code using standard, textual tools are lost. 
         </p>
       
-        <h3>Outlook: Towards Live Text</h3>
+        <h3>Outlook: Source Code All the Things</h3>
 
-        <p>
-          limitations: only feedback, which can be represented as literal. 
-          Live literals are only the first step towards interactive source code, or live text. 
-          <ul>
-            <li>REPL
-            <li>Changing code with code Refactoring
-            <li>New syntax (e.g. textual stack frame?)
-          </ul>
-          </p>
+      <p>
+        Live literals are only the first step towards a more general
+        concept of source code as an interactive medium.  The scope of
+        direct manipulation and immediate feedback is limited to
+        literal expressions, but there are ample directions for
+        generalizing the approach.
+      </p>
+
+      <p>
+        Two concrete directions for future work are <em>textual playgrounds</em> and <em>syntax for actions</em>.
+        Textual playgrounds turns the source code itself into a live playground, scrapbook or REPL, where the programmer can try out snippets of code and immediately see the result. In fact, the concept of a read-eval-print-loop (REPL) could be directly supported within the source code. Syntax for actions captures the idea that meta-level operations on the program code or execution are invoked via programming constructs. A typical example is how breakpoints in Smalltalk are set using the <span class="code">self halt.</span> statement. Another example would be to invoke refactorings using special language construct.
+        An early experiment of the first author provided syntactic support for rename refactorings: appending the operator <span class="code">-&gt;newName</span> to the name of an abstraction would perform the renaming.  One can also imagine invoking jump-to-declaration, or show-references using a syntactic affordance.
+      </p>
+
+      <p>
+        The examples of live literals all did not require any syntactic language extension of the host language. It is however interesting to ponder how programming languages could be designed from scratch to support live text.  There is no inherent reason why a language could not have explicit syntactic support, for instance, to support textual playgrounds or syntax for actions. In a sense, this would  create additional levels of interpretation in the source code that transcend, for instance, the standard distinction between comments (for humans) from code (for humans and the computer). A programming language&rsquo;s syntax would be stratified according to when certain constructs would be active, and for what purpose. Exploring the interaction between the strata is an interesting area of further research. 
+        </p>
         
-       
+
+      <h3>Conclusion</h3>
+
+      <p>
+        Live programming aims to improve the experience of programming with better techniques for interacting with programs and program execution.
+        Live literals are a first step to increase feedback and direct manipulation, but without stepping outside the realm of ordinary, textual source code.
+        Live literals turn the otherwise mute and lame source code into an interactive medium for both input and output at development time.
+        We have shown three examples illustrating live literals: live examples and tests, embedded spreadsheets, and probes.
+        These mini case studies show the potential value of bringing liveness to the source code.
+        Future work should focus on widening the scope of live literals to include other idioms of textual interactivity.
+      Finally, live text poses challenges for language design  in general, since it broadens the scope of traditional syntax and semantics, to include interaction as well.
+        </p>
 	
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
