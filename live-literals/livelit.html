@@ -41,11 +41,11 @@
       instantaneously updated.  In most existing work on liveness,
       these views are considered part of the IDE: separate windows,
       panels, or widgets allow programmers to inspect and interact
-      with live data and program execution.  In this paper we present
+      with live data and program execution. In this paper we present
       &ldquo;live literals&rdquo; where the source code itself is used
       as vehicle for immediate feedback and direct manipulation.  Live
       literals are like ordinary programming language literals, but
-      they are automatically updated after certain changes to the
+      they are automatically updated after changes to the
       code. We illustrate the concept of live literals in Javascript
       using three applications: embedded spreadsheets, live units
       tests, and probes.
@@ -56,8 +56,8 @@
       <h2>Introduction</h2>
 
       <p>
-        Live programming is about improving programmer experience through better feedback and better tools to manipulate code.
-        Often, the responsibility for these additional affordances is on the IDE: the user interface provides separate panels and widgets for inspecting and manipulating program
+        The goal of live programming to improve programmer experience through better feedback and better tools to manipulate code.
+        Often, the responsibility for these additional affordances is on the IDE: the user interface, for example, provides separate panels and widgets for inspecting and manipulating program
       code and execution. The source code itself is more or less taken for
       granted as being a completely static input artifact.  In
       this work we make a first step towards turning this hierarchy
@@ -78,12 +78,12 @@
       instance, changing <span class="code">"1 + 2"</span>
       to <span class="code">"1 * 2"</span>, changes the
       constant <span class="code">3</span>
-      with <span class="code">2</span>.  Live literals thus allow the
+      to <span class="code">2</span>.  Live literals thus allow the
       programmer to directly manipulate<label for="sn-direct"
       class="margin-toggle sidenote-number"></label>
       <input type="checkbox" id="sn-direct" class="margin-toggle"/>
       <span class="sidenote">
-        	B. Shneiderman, <a href="http://dx.doi.org/10.1109/MC.1983.1654471">Direct Manipulation: A Step Beyond Programming Languages</a>, <em>Computer</em>, Volume 16 , Issue 8, 1983.</span>
+            B. Shneiderman, <a href="http://dx.doi.org/10.1109/MC.1983.1654471">Direct Manipulation: A Step Beyond Programming Languages</a>, <em>Computer</em>, Volume 16 , Issue 8, 1983.</span>
       input data from within the code, as well as receive immediate feedback about their actions, also within the code<label for="sn-gulf" class="margin-toggle sidenote-number"></label>
       <input type="checkbox" id="sn-gulf" class="margin-toggle"/>
       <span class="sidenote">
@@ -118,7 +118,7 @@
       <h3>Live Literals: Syntactic Real-Estate for Direct Manipulation and Immediate Feedback</h3>
       <p>
         Literal expressions exist in all  programming languages, from the atomic integer, string and boolean literals, to composite literals for representing lists (Lisp), arrays (Ruby, Python, etc.), objects (Javascript, Newtonscript), or XML documents (Scala).
-        Normally, literals represent static aspects of data, for instance to initialize parts of a computation. They are static, because their layout (or value) is determined even before compiling the code, and  code itself is not assumed to change at run time.
+        Normally, literals represent static aspects of data, for instance to initialize parts of a computation. They are static, because their layout (or value) is determined even before compiling the code, and the code itself is not assumed to change at run time.
         </p>
 
       <p>
@@ -134,7 +134,7 @@
       <p>But why would this be relevant or even useful?
         A first motivation for live literals is simply &#8220;less is more&#8221;.
         Live literals are  part of the primary artifact of the working programmer, the source code. There is no need for separate panels, views or popups, which divert the programmer&rsquo;s attention from the actual source code.
-        Consequently, live literals promises a significantly simpler model of the IDE as a whole, since part of the traditional IDE services are taken over by the source code itself.
+        Consequently, live literals promise a significantly simpler model of the IDE as a whole, since part of the traditional IDE services are taken over by the source code itself.
         Finally, the representation through data literals entails that the language of feedback is the same as the language of code, which again simplifies things considerably: one language is simpler to deal with than multiple languages.
         We conjecture that live literals improve feedback, paying the minimum cost in terms of cognitive distance and representation impedance mismatch, virtually eliminating all context switching.
       </p>
@@ -295,16 +295,16 @@ var grades = sheet([
       <h3>Implementing Live Literals</h3>
 
       <p>
-        On the surface live literals are a simple technique to improve the programming experience. Under the hood, however, some tricks are required. Here we discuss how live literals as presented in this document are implemented. At a very high-level, live literals require a dedicated interpreter for the parts of the code that contain the relevant literals. This interpreter is then invoked by the IDE at edit time to compute results and update the editor.
+        On the surface, live literals are a simple technique to improve the programming experience. Under the hood, however, some tricks are required. Here we discuss how live literals as presented in this document are implemented. At a very high-level, live literals require a dedicated interpreter for the parts of the code that contain the relevant literals. This interpreter is then invoked by the IDE at edit time to compute results and update the editor.
       </p>
 
       <p>The first step involves identifying the context of the  live literal in the code. For instance, in the spreadsheet example, the interpreter finds the <span class="code">sheet</span> expression in the abstract syntax tree (AST) of the program. It then evaluates the expression, obtaining the result of the updated sheet. Note that the spreadsheet semantics is implemented as an ordinary library. The live literal interpreter solely acts as a broker between live literals and the source code in the editor. In our current implementation, the expression is evaluated using Javascript&rsquo;s <span class="code">eval</span> function.
       </p>
       <p>
-        The source text in the editor is then patched to reflect the new result.  The original AST of the live literal is compared with the new data value that it should represent. Whenever there is a change in a sub tree, the corresponding source fragment is replaced with a textual representation of the new value. The fragment of text to be replaced is retrieved from  accurate source locations on the AST. Whenever new literal data is inserted, a pretty printer ensures that the values are nicely represented in the source text.
+        The source text in the editor is then patched to reflect the new result.  The original AST of the live literal is compared with the new data value that it should represent. Whenever there is a change in a subtree, the corresponding source fragment is replaced with a textual representation of the new value. The fragment of text to be replaced is retrieved from  accurate source locations on the AST. Whenever new literal data is inserted, a pretty printer ensures that the values are nicely represented in the source text.
       </p>
 
-      <p>Live literals benefit from additional origin tracking for the live literal expressions. For instance, the executiong of the probe  function  <span class="code">p</span> requires knowledge about where the function call occurs in the source code to accurately store intermediate results. In our Javascript implementation this information is retrieved from the stack trace contained in an exception that is thrown for this particular purpose. We expect that a more systematic approach to providing static soure code origin information at run time will be a key enabler for additional live programming features. 
+      <p>Live literals benefit from additional origin tracking for the live literal expressions. For instance, the execution of the probe  function  <span class="code">p</span> requires knowledge about where the function call occurs in the source code to accurately store intermediate results. In our Javascript implementation this information is retrieved from the stack trace contained in an exception that is thrown for this particular purpose. We expect that a more systematic approach to providing static source code origin information at run time will be a key enabler for additional live programming features. 
       </p>
 
 
@@ -328,7 +328,7 @@ class="margin-toggle"/>
         Live literals are a step towards integrating aspects of the IDE with the source code of the program.
         The idea of bringing IDE and code closer is not a new idea.
         Case in point is the Smalltalk language, which cannot really be separated from the IDE.
-        Smalltalk-like systems, however, represent the integration in the the direction: the programmer  mostly interacts with IDE, and source code proper is limited to actual method bodies.
+        Smalltalk-like systems, however, represent the integration in the direction: the programmer  mostly interacts with IDE, and source code proper is limited to actual method bodies.
         In the other direction, there has been early work to explore the integration of command language and programming language<label for="sn-mono" class="margin-toggle
         sidenote-number"></label> <input type="checkbox" id="sn-mono"
         class="margin-toggle"/>
@@ -359,7 +359,7 @@ class="margin-toggle"/>
 
       <p>
         Two concrete directions for future work are <em>textual playgrounds</em> and <em>syntax for actions</em>.
-        Textual playgrounds turns the source code itself into a live playground, scrapbook or REPL, where the programmer can try out snippets of code and immediately see the result. In fact, the concept of a read-eval-print-loop (REPL) could be directly supported within the source code. Syntax for actions captures the idea that meta-level operations on the program code or execution are invoked via programming constructs. A typical example is how breakpoints in Smalltalk are set using the <span class="code">self halt.</span> statement. Another example would be to invoke refactorings using special language construct.
+        Textual playgrounds turn the source code itself into a live playground, scrapbook or REPL, where the programmer can try out snippets of code and immediately see the result. In fact, the concept of a read-eval-print-loop (REPL) could be directly supported within the source code. Syntax for actions captures the idea that meta-level operations on the program code or execution are invoked via programming constructs. A typical example is how breakpoints in Smalltalk are set using the <span class="code">self halt.</span> statement. Another example would be to invoke refactorings using special language construct.
         An early experiment of the first author provided syntactic support for rename refactorings: appending the operator <span class="code">-&gt;newName</span> to the name of an abstraction would perform the renaming.  One can also imagine invoking jump-to-declaration, or show-references using a syntactic affordance.
       </p>
 
@@ -379,7 +379,7 @@ class="margin-toggle"/>
         Future work should focus on widening the scope of live literals to include other idioms of textual interactivity.
       Finally, live text poses challenges for language design  in general, since it broadens the scope of traditional syntax and semantics, to include interaction as well.
         </p>
-	
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
   var editorTests = ace.edit("editor_tests");
