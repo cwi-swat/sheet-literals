@@ -1,13 +1,13 @@
 'use strict';
 
-var rowConstructors = [];
+var cellFuncs = [];
 
-function row(f) {
-    rowConstructors.push(f);
+function cell(f) {
+    cellFuncs.push(f);
 }
 
 function sheet(s) {
-    return computeSheet(s, rowConstructors);
+    return computeSheet(s, cellFuncs);
 }
 
 
