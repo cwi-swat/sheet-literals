@@ -56,7 +56,7 @@
       <h2>Introduction</h2>
 
       <p>
-        The goal of live programming to improve programmer experience through better feedback and better tools to manipulate code.
+        The goal of live programming is to improve programmer experience through better feedback and better tools to manipulate code.
         Often, the responsibility for these additional affordances is on the IDE: the user interface, for example, provides separate panels and widgets for inspecting and manipulating program
       code and execution. The source code itself is more or less taken for
       granted as being a completely static input artifact.  In
@@ -69,7 +69,7 @@
       We introduce <em>live literals</em>: literal data expressions in
       the source code which are updated continuously while the code is
       executed or in reaction to program edit by the programmer. The archetypical example of live literals is captured in the following snippet of code: <span class="code">doIt("1 + 2", 3)</span>.
-      Whenever the the programmer edits the first
+      Whenever  the programmer edits the first
       argument, the second argument is replaced with a literal
       rendering of the result of evaluating the quoted code.  For
       instance, changing <span class="code">"1 + 2"</span>
@@ -102,7 +102,7 @@
       </p>
       <p>
       We illustrate live literals using three applications implemented
-      in Javascript. The first allows function be annotated with
+      in Javascript. The first allows functions to be annotated with
       example data to explore and test the result of evaluating a
       function.  The second exploits Javascript&rsquo;s object literal
       syntax to represent spreadsheets in ordinary Javascript code.
@@ -121,7 +121,7 @@
       <p>
         Live literals are different. Instead of representing static inputs to some computation, live literals are input and output ports for dynamic data, <em>at edit time</em>.
         Editing a literal may trigger a computation, the result of which will be instantaneously fed back into the source code, at a different location. 
-        One literal&rsquo;s input feeds back into another literal&rsquo;s output. 
+        One literal&rsquo;s input feeds back into another literal as output. 
         As a result, instead of a serial script for the
         computer to execute, the text itself becomes as interactive as
         a user interface.
@@ -129,7 +129,7 @@
 
       <h3>Motivation</h3>
       <p>But why would this be relevant or even useful?
-        A first motivation for live literals is simply &rdquo;less is more&ldquo;.
+        A first motivation for live literals is simply &ldquo;less is more&rdquo;.
         Live literals are  part of the primary artifact of the working programmer, the source code. There is no need for separate panels, views or popups, which divert the programmer&rsquo;s attention from the actual source code.
         Consequently, live literals promise a significantly simpler model of the IDE as a whole, since part of the traditional IDE services are taken over by the source code itself.
         Finally, the representation through data literals entails that the language of feedback is the same as the language of code, which again simplifies things considerably: one language is simpler to deal with than multiple languages.
@@ -137,12 +137,11 @@
       </p>
 
       <p>Another benefit of live literals is that reifying input and output data as part of the source code allows this information to be shared. For instance, just like ordinary code, code with live literals can be copy-pasted, persisted on disk, and versioned using a configuration management tool.
-        This will be helpful in (online) collaboration settings, where collaborators do not have to follow elaborate instruction to reproduce certain situations within their own workspace.
+        This will be helpful in (online) collaboration settings, where collaborators do not have to follow elaborate instructions to reproduce certain situations within their own workspace.
       </p>
 
       <p>
-        As a final potential benefit of live literals as opposed to separate IDE views is that they are amenable to standard programming abstractions. Since live literals are part of ordinary expressions and statements, they can partake in conditional, looping control-flow, or even functional abstraction. This enables patterns of use hitherto unforeseen.
-        Traditional IDEs, on the other hand, provide only canned visualizations.
+        As a final potential benefit of live literals as opposed to separate IDE views is that they are amenable to standard programming abstractions. Since live literals are part of ordinary expressions and statements, they can partake in conditional, looping control-flow, or functional abstraction. This enables patterns of use that are not anticipated by the canned visualizations offered in traditional IDEs.
         Although we have not fully explored this new power, we expect this to provide an additional level of flexibility for improving how we interact with our source code.
         </p>
       
@@ -324,8 +323,8 @@ class="margin-toggle"/>
       <p>
         Live literals are a step towards integrating aspects of the IDE with the source code of the program.
         The idea of bringing IDE and code closer is not a new idea.
-        Case in point is the Smalltalk language, which cannot really be separated from the IDE.
-        Smalltalk-like systems, however, represent the integration in the direction: the programmer  mostly interacts with IDE, and source code proper is limited to actual method bodies.
+        Case in point is the Smalltalk language, which really cannot be separated from the IDE.
+        Smalltalk-like systems, however, represent the integration in the direction of the UI: the programmer  mostly interacts with IDE, and source code proper is limited to actual method bodies.
         In the other direction, there has been early work to explore the integration of command language and programming language<label for="sn-mono" class="margin-toggle
         sidenote-number"></label> <input type="checkbox" id="sn-mono"
         class="margin-toggle"/>
@@ -337,11 +336,11 @@ class="margin-toggle"/>
 
 
       <p>
-        Full obliteration of the distinction between source code an GUI is represented by programming systems based on structure editing (or projectional), like MPS<label for="sn-mps" class="margin-toggle
+        Full obliteration of the distinction between source code an GUI is represented by programming systems based on structure editing (als known as  &ldquot;projectional editing&rdquot;), like MPS<label for="sn-mps" class="margin-toggle
 sidenote-number"></label> <input type="checkbox" id="sn-mps"
 class="margin-toggle"/>
         <span class="sidenote">Jetbrains, <a href="https://www.jetbrains.com/mps/">Meta Programming System (MPS)</a></span>. Such systems represent the opposite end of the spectrum regarding integration: there is no source code at all, the only interface is the graphical user interface.
-        Although this provides arbitrary freedom to mix-and-match different notations, views and languages, the benefits of sharing and maintaining code using standard, textual tools are lost. 
+        Although this provides arbitrary freedom to mix different notations, views and languages, the benefits of sharing and maintaining code using standard, textual tools are lost. 
         </p>
       
         <h3>Outlook: Source Code All the Things</h3>
@@ -361,7 +360,7 @@ class="margin-toggle"/>
       </p>
 
       <p>
-        The examples of live literals all did not require any syntactic language extension of the host language. It is however interesting to ponder how programming languages could be designed from scratch to support live text.  There is no inherent reason why a language could not have explicit syntactic support, for instance, to support textual playgrounds or syntax for actions. In a sense, this would  create additional levels of interpretation in the source code that transcend, for instance, the standard distinction between comments (for humans) from code (for humans and the computer). A programming language&rsquo;s syntax would be stratified according to when certain constructs would be active, and for what purpose. Exploring the interaction between the strata is an interesting area of further research. 
+        The examples of live literals did not require any syntactic language extension of the host language. It is however interesting to ponder how programming languages could be designed from scratch to support live text.  There is no inherent reason why a language could not have explicit syntactic support, for instance, to support textual playgrounds or syntax for actions. In a sense, this would  create additional levels of interpretation in the source code that transcend, for instance, the standard distinction between comments (for humans) from code (for humans and the computer). A programming language&rsquo;s syntax would be stratified according to when certain constructs would be active, and for what purpose. Exploring the interaction between the strata is an interesting area of further research. 
         </p>
         
 
