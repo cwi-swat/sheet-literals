@@ -68,7 +68,7 @@
       <p>
       We introduce <em>live literals</em>: literal data expressions in
       the source code which are updated continuously while the code is
-      executed or in reaction to program edit by the programmer. The archetypical example of live literals is captured in the following snippet of code: <span class="code">doIt("1 + 2", 3)</span>.
+      executed or in reaction to program edits by the programmer. The archetypical example of live literals is captured in the following snippet of code: <span class="code">doIt("1 + 2", 3)</span>.
       Whenever  the programmer edits the first
       argument, the second argument is replaced with a literal
       rendering of the result of evaluating the quoted code.  For
@@ -385,7 +385,7 @@ class="margin-toggle"/>
     editorTests.session.setOption("useWorker", false);
     editorTests.getSession().on('change', changeHandler(editorTests));
   editorTests.setOptions({
-  fontSize: "11pt"
+  fontSize: "1rem"
   });
   
     var editorSheets = ace.edit("editor_sheets");
@@ -395,7 +395,7 @@ class="margin-toggle"/>
     editorSheets.session.setOption("useWorker", false);
     editorSheets.getSession().on('change', changeHandler(editorSheets));
   editorSheets.setOptions({
-  fontSize: "11pt"
+  fontSize: "1rem"
   });
 
 
@@ -406,7 +406,7 @@ class="margin-toggle"/>
     editorProbes.session.setOption("useWorker", false);
   editorProbes.getSession().on('change', changeHandler(editorProbes));
   editorProbes.setOptions({
-  fontSize: "11pt"
+  fontSize: "1rem"
   });
   
 </script>
