@@ -1,0 +1,24 @@
+\begin{thebibliography}{1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+
+\bibitem{burnett_visual_2001}
+Burnett, M.M.: Visual {Programming}. In: Wiley {Encyclopedia} of {Electrical}
+  and {Electronics} {Engineering}. John Wiley \& Sons, Inc. (2001),
+  \url{http://onlinelibrary.wiley.com/doi/10.1002/047134608X.W1707/abstract}
+
+\bibitem{maloney_directness_1995}
+Maloney, J.H., Smith, R.B.: Directness and {Liveness} in the {Morphic} {User}
+  {Interface} {Construction} {Environment}. In: Proceedings of the 8th {Annual}
+  {ACM} {Symposium} on {User} {Interface} and {Software} {Technology}. pp.
+  21--28. {UIST} '95, ACM, New York, NY, USA (1995),
+  \url{http://doi.acm.org/10.1145/215585.215636}
+
+\bibitem{shneiderman_direct_1983}
+Shneiderman, B.: Direct {Manipulation}: {A} {Step} {Beyond} {Programming}
+  {Languages}. Computer  16(8),  57--69 (Aug 1983)
+
+\bibitem{Victor2012}
+Victor, B.: Inventing on principle (2012), \url{http://vimeo.com/36579366}
+
+\end{thebibliography}
