@@ -2,21 +2,24 @@
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
 
-\bibitem{burnett_visual_2001}
-Burnett, M.M.: Visual {Programming}. In: Wiley {Encyclopedia} of {Electrical}
-  and {Electronics} {Engineering}. John Wiley \& Sons, Inc. (2001),
-  \url{http://onlinelibrary.wiley.com/doi/10.1002/047134608X.W1707/abstract}
+\bibitem{hermans_2015_19341}
+Hermans, F., van~der Storm, T.: {Copy-Paste Tracking: Fixing Spreadsheets
+  Without Breaking Them}. In: {Proceedings of the First International
+  Conference on Live Coding (ICLC'15)}. pp. 104--109 (2015)
 
-\bibitem{maloney_directness_1995}
-Maloney, J.H., Smith, R.B.: Directness and {Liveness} in the {Morphic} {User}
-  {Interface} {Construction} {Environment}. In: Proceedings of the 8th {Annual}
-  {ACM} {Symposium} on {User} {Interface} and {Software} {Technology}. pp.
-  21--28. {UIST} '95, ACM, New York, NY, USA (1995),
-  \url{http://doi.acm.org/10.1145/215585.215636}
+\bibitem{jones2003user}
+Jones, S.P., Blackwell, A., Burnett, M.: A user-centred approach to functions
+  in excel. ACM SIGPLAN Notices  38(9),  165--176 (2003)
 
-\bibitem{shneiderman_direct_1983}
-Shneiderman, B.: Direct {Manipulation}: {A} {Step} {Beyond} {Programming}
-  {Languages}. Computer  16(8),  57--69 (Aug 1983)
+\bibitem{lieberman1995bridging}
+Lieberman, H., Fry, C.: Bridging the gulf between code and behavior in
+  programming. In: Proceedings of the SIGCHI conference on Human factors in
+  computing systems. pp. 480--486. ACM Press/Addison-Wesley Publishing Co.
+  (1995)
+
+\bibitem{mugridge2005fit}
+Mugridge, R., Cunningham, W.: Fit for developing software: framework for
+  integrated tests. Pearson Education (2005)
 
 \bibitem{Victor2012}
 Victor, B.: Inventing on principle (2012), \url{http://vimeo.com/36579366}
