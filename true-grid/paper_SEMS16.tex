@@ -52,8 +52,8 @@
 \begin{abstract}
 Spreadsheet systems are live programming environments. Both the data and the code are right in front you, and if you edit either of them, the effects are immediately visible. Unfortunately, spreadsheets lack mechanisms for abstraction, such as classes, function definitions etc. Programming languages excel at abstraction, but most mainstream languages or integrated development environments (IDEs) do not support the interactive, live feedback loop of spreadsheets. As a result, exploring and testing of code is cumbersome and indirect. 
 
-In this paper we propose a method to bring both worlds closer together, by juxtaposing ordinary code and spreadsheet-like grids in the IDE, called TrueGrid. Using TrueGrid spreadsheet cells can be programmed using full featured programming language. Spreadsheet users then may enjoy benefits of source code, including added abstractions, syntax highlighting, version control, etc. On the other hand, programmers may leverage the grid for interactive exploring and testing of code. 
-We illustrate these benefits using a prototype implementation of TrueGrid that runs in the browser an uses Javascript as a programming language.
+In this paper we propose a method to bring both worlds closer together, by juxtaposing ordinary code and spreadsheet-like grids in the IDE, called TrueGrid. Using TrueGrid spreadsheet cells can be programmed with a fully featured programming language. Spreadsheet users then may enjoy benefits of source code, including added abstractions, syntax highlighting, version control, etc. On the other hand, programmers may leverage the grid for interactive exploring and testing of code. 
+We illustrate these benefits using a prototype implementation of TrueGrid that runs in the browser and uses Javascript as a programming language.
 \end{abstract}
 
 \section{Introduction}
@@ -62,7 +62,7 @@ Spreadsheets are very popular tools for end-user programming. Their formula lang
 Live programming helps bridging the gulf between code and behavior because the user receives immediate feedback on their actions~\cite{lieberman1995bridging}.
 More recently, live programming has found its way to a wider audience, for instance, by Bret Victor's influential talk \textit{Inventing on Principle}~\cite{Victor2012}. Figure \ref{fig:bret}, taken from Victor's talk, illustrates the idea of live programming: on the right, we have source code and on the left, we have the result of that code, in this case, a tree drawing. Modifying the code will immediately affect the visual representation of the tree.
 
-This liveness is one of the core features of most spreadsheet systems. When a users enters a formula and presses enter, they see the result, without long edit-compile-run cycles. This live characteristic of spreadsheets is often praised as their key success factor~\cite{HermansPhD}.
+This liveness is one of the core features of most spreadsheet systems. When a users enters a formula and presses enter, they see the result, without a lengthy edit-compile-run cycle. This live characteristic of spreadsheets is often praised as their key success factor~\cite{HermansPhD}.
 \begin{figure}
   \begin{center}
   \includegraphics[width=9cm]{fig/bret.png}
@@ -84,7 +84,7 @@ On the other hand, there is source code. All existing programming languages supp
 %This almost exactly describes the interface of a spreadsheet. Instead of navigating to a code behind, a class or an object, spreadsheet users have all ingredients: data, metadata and calculations, in one view, and can access them with one click. 
  
 In this paper, we will describe \textit{TrueGrid}, a light-weight approach to bridging the gap between programming and spreadsheets and describe ts implications in both worlds. The basic concept of TrueGrid is to allow a spreadsheet like grid to be programmed using a full featured programming language, in a consistent user interface. Figure \ref{fig:TG} shows this idea as implemented in our prototype. 
-The key charactertistic is that  developers see the code and data at once. Furthermore, like a spreadsheet, TrueGrid is live, i.e. on a change of data or code, the grid is updated.
+The key charactertistic is that  developers see the code and data at the same time. Furthermore, like a spreadsheet, TrueGrid is live, i.e. on a change of data or code, the grid is updated.
 In our example, we use JavaScript as a language, however, the idea itself is not limited to a single programming language.
 % in fact, one can even image a grid in which different programming languages live.
 
@@ -100,7 +100,7 @@ In the next section we explore the implication of the TrueGrid user interface fo
 
 \section{TrueGrid for Spreadsheet Users}
 
-As an implementation of TrueGrid for spreadsheet users, we hypothesize that existing spreadsheet system is extended with a source code editor view, next to the grid-based view of the data. This allows users to  use advanced features like PivotTables and charts on top of their TrueGrid, but also use professional IDE services for expressing computations. For spreadsheet users, using TrueGrid over spreadsheets presents several benefits. For example, the use of a professional  editor supports the developer with editor services like syntax highlighting and error marking. Furthermore, the textual form of the code allows for easy diffing and merging, enabling more mature version control on spreadsheets. While learning a new programming language can be challenging, there are spreadsheet developers working with VBA now, which is a fully featured language. Unfortunately the integration between the code and a spreadsheet is low level and cumbersome. We envision TrueGrid having a lower lower learning curve because code and data are juxtaposed.
+As an implementation of TrueGrid for spreadsheet users, we hypothesize that existing spreadsheet system could be extended with a source code editor view, next to the grid-based view of the data. This allows users to  use advanced features like PivotTables and charts on top of their TrueGrid, but also use professional IDE services for expressing computations. For spreadsheet users, using TrueGrid over spreadsheets presents several benefits. For example, the use of a professional  editor supports the developer with editor services like syntax highlighting and error marking. Furthermore, the textual form of the code allows for easy diffing and merging, enabling more mature version control on spreadsheets. While learning a new programming language can be challenging, there are spreadsheet developers working with VBA now, which is a fully featured language. Unfortunately the integration between the code and a spreadsheet is low level and cumbersome. We envision TrueGrid having a less steep learning curve, because code and data are juxtaposed.
 
 \begin{figure}[t]
 \begin{minipage}{0.6\linewidth}
@@ -130,7 +130,7 @@ Birgit & 9 & 9 & 9 \\\hline
 \end{figure}
 
 As an example consider the simple grade book sheet shown in Fig.~\ref{FIG:grades}. It shows the actual data (both provided and computed) in the grid. The average and class average are expressed using ordinary Javascript functions. The TrueGrid environment links functions or methods to the cells in the grid using a naming convention.
-For instance, function starting with the \lstinline{column_} prefix computes a complete column, given a particular row (an ordinary Javascript object).
+For instance, a function starting with the \lstinline{column_} prefix computes a complete column, given a particular row (an ordinary Javascript object).
 This is used in the computation of the \lstinline{avg} column, where each cell contains the average of the lab and exam cells.
 The model also allows naming individual cells. This is illustrated in the function \lstinline{cell_classAvg}. The function receives the current column (\lstinline{col}, a Javascript array), and the current \lstinline{row}. Based on the elements in the column the class average is computed. 
 
@@ -177,7 +177,7 @@ leftpad & 1 & 2 & 0 & "01"\\\hline
 In particular, TrueGrid can be seen as a persistent REPL, where expressions or method invocations are continuously evaluated, after every change to the code or input data. 
 Consider the example shown in Fig.~\ref{FIG:leftpad}.
 On the left is a simple Javascript function for left-padding values with spaces or other padding characters. 
-Using TrueGrid, the programmer can provide example data in the grid and explore the implementation. This can be especially valuable early in the development process when  you have some data and only a vague idea of where the how certain functionality should be implemented.
+Using TrueGrid, the programmer can provide example data in the grid and explore the implementation. This can be especially valuable early in the development process when  you have some data and only a vague idea of how certain functionality should be implemented.
 
 From the testing perspective, TrueGrid provides a kind of ``FIT testing on steroids''~\cite{mugridge2005fit}, where the grid functions as a live dashboard of test success and failure. 
 In this case, the grid shown in Fig.~\ref{FIG:leftpad} could have an additional column indicating the success or failure of the function execution, or use green/red coloring of rows to the same effect.
@@ -186,7 +186,7 @@ Again, the success indicators would be automatically updated upon changing the s
 
 \section{Conclusion and Outlook}
 
-Spreadsheets are live programming environments. However, their lack of abstraction mechanisms and editor support are impediments to professional spreadsheet development. Conversely, traditional programming environments lack the continuos feedback that make spreadsheets so attractive. In this paper we have presented TrueGrid, a user interface design combining code editing and grid-based data view, with a live execution model.
+Spreadsheets are live programming environments. However, their lack of abstraction mechanisms and editor support are impediments to professional spreadsheet development. Conversely, traditional programming environments lack the continuous feedback that makes spreadsheets so attractive. In this paper we have presented TrueGrid, a user interface design combining code editing and grid-based data view, with a live execution model.
 
 TrueGrid presents a promising bridge between the domain of spreadsheets and software development. It has the potential to improve end-user programming experience from two perspectives:
 \begin{itemize}
@@ -194,7 +194,7 @@ TrueGrid presents a promising bridge between the domain of spreadsheets and soft
 \item For professional developers: spreadsheet-like grids support live exploration and testing of code, without explicitly invoking test scripts of entering expressions in a REPL.
 \end{itemize}
 We have implemented a prototype of TrueGrid which runs in the browser, using Javascript as the programming language. Further research is needed to empirically investigate the benefits of TrueGrid from both the programmer and spreadsheet user perspectives. 
-We expect that TrueGrid provides a fruitful vehicle for exploring the middle ground between full end-user programming, and professional software development. 
+We expect that TrueGrid provides a fruitful vehicle for exploring the middle ground between end-user programming on the one hand side, and professional software development on the other.
 
 
 \bibliographystyle{splncs03}

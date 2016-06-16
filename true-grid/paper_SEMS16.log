@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.12.2)  22 APR 2016 13:52
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.12.2)  16 JUN 2016 08:59
 entering extended mode
 **paper_SEMS16.tex
 
@@ -254,9 +254,6 @@ Overfull \hbox (6.94649pt too wide) in paragraph at lines 53--54
 oth
  []
 
-
-LaTeX Warning: Citation `proof' on page 1 undefined on input line 65.
-
 <fig/bret.png, id=1, 559.33969pt x 319.94531pt>
 File: fig/bret.png Graphic file (type png)
  <use fig/bret.png>
@@ -265,7 +262,7 @@ Package pdftex.def Info: fig/bret.png used on input line 68.
  [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
-<fig/TG.png, id=14, 581.92406pt x 209.28188pt>
+<fig/TG.png, id=13, 581.92406pt x 209.28188pt>
 File: fig/TG.png Graphic file (type png)
  <use fig/TG.png>
 Package pdftex.def Info: fig/TG.png used on input line 93.
@@ -300,17 +297,17 @@ Overfull \hbox (2.05553pt too wide) in paragraph at lines 149--173
 
 [4]
 ("C:\Users\Felienne\Dropbox\TU Delft\Papers\sheet-literals\true-grid\paper_SEMS
-16.bbl") [5]
+16.bbl" [5]) [6]
 ("C:\Users\Felienne\Dropbox\TU Delft\Papers\sheet-literals\true-grid\paper_SEMS
 16.aux") ) 
 Here is how much of TeX's memory you used:
  2975 strings out of 493921
- 40794 string characters out of 3147273
- 129547 words of memory out of 3000000
+ 40799 string characters out of 3147273
+ 128550 words of memory out of 3000000
  6265 multiletter control sequences out of 15000+200000
  8465 words of font info for 30 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 29i,13n,40p,1067b,1137s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 29i,13n,40p,1073b,1137s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pf
 b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Program Fil
@@ -320,9 +317,9 @@ es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX
 blic/amsfonts/cm/cmssi9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/ams
 fonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmtt9.pfb>
-Output written on paper_SEMS16.pdf (5 pages, 409061 bytes).
+Output written on paper_SEMS16.pdf (6 pages, 406389 bytes).
 PDF statistics:
- 58 PDF objects out of 1000 (max. 8388607)
+ 61 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
