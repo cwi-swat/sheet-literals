@@ -1,6 +1,17 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
+
+\bibitem{adam2015towards}
+Adam, S., Schultz, U.P.: Towards tool support for spreadsheet-based
+  domain-specific languages. In: Proceedings of the 2015 ACM SIGPLAN
+  International Conference on Generative Programming: Concepts and Experiences.
+  pp. 95--98. ACM (2015)
+
+\bibitem{cunha2014model}
+Cunha, J., Mendes, J., Saraiva, J., Visser, J.: Model-based programming
+  environments for spreadsheets. Science of Computer Programming  96,  254--275
+  (2014)
 
 \bibitem{HermansPhD}
 Hermans, F.: Analyzing and Visualizing Spreadsheets. Ph.D. thesis, Delft
@@ -11,9 +22,20 @@ Hermans, F., van~der Storm, T.: Copy-paste tracking: Fixing spreadsheets
   without breaking them. In: Proceedings of the International Conference on
   Live Coding (2015)
 
+\bibitem{MPS}
+Jetbrains: Meta programming system. Online (2016),
+  \url{https://www.jetbrains.com/mps/}
+
 \bibitem{jones2003user}
 Jones, S.P., Blackwell, A., Burnett, M.: A user-centred approach to functions
   in excel. ACM SIGPLAN Notices  38(9),  165--176 (2003)
+
+\bibitem{EUSE}
+Ko, A.J., Abraham, R., Beckwith, L., Blackwell, A.F., Burnett, M.M., Erwig, M.,
+  Scaffidi, C., Lawrance, J., Lieberman, H., Myers, B.A., Rosson, M.B.,
+  Rothermel, G., Shaw, M., Wiedenbeck, S.: The state of the art in end-user
+  software engineering. {ACM} Comput. Surv.  43(3), ~21 (2011),
+  \url{http://doi.acm.org/10.1145/1922649.1922658}
 
 \bibitem{lieberman1995bridging}
 Lieberman, H., Fry, C.: Bridging the gulf between code and behavior in
@@ -24,6 +46,10 @@ Lieberman, H., Fry, C.: Bridging the gulf between code and behavior in
 \bibitem{mugridge2005fit}
 Mugridge, R., Cunningham, W.: Fit for Developing Software: Framework for
   Integrated Tests. Prentice Hall (2005)
+
+\bibitem{schrage2008beyond}
+Schrage, M.M., Swierstra, S.D.: Beyond {ASCII} {--} parsing programs with
+  graphical presentations. J. UCS  14(21),  3414--3430 (2008)
 
 \bibitem{Victor2012}
 Victor, B.: Inventing on principle (2012), \url{http://vimeo.com/36579366}
