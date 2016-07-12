@@ -1,0 +1,228 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/white.css">
+        <title>Live Literals Revealed</title>
+        <script src="js/esprima.js"></script>
+<script src="js/jquery-1.11.0.min.js"></script>
+<script src="js/libsheet.js"></script>
+
+  <script>
+    $(document).ready(function() {
+//    app.run();
+    });
+  </script>
+
+    <style type="text/css" media="screen">
+    #editor {
+        margin: 0;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+    </style>
+
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+              <section>
+                <h2>Live Literals</h2>
+                <blockquote style="border: none;">Tijs van der Storm (@tvdstorm)<br>
+                  Felienne Hermans (@felienne)</blockquote>
+
+                <table>
+                  <tr >
+                    <td valign="center">
+                      <img src="images/cwi.png" width="150px" style="border: none; box-shadow: none;">
+                    </td>
+                    <td valign="center">
+                      <img src="images/tudelft.png" width="150px" style="border: none; box-shadow: none;">
+                    </td>
+                  </tr>
+                </table>
+                
+              </section>
+              <section>
+                <h3>Live literals</h3>
+
+                <ul>
+                  <li>Live programming: improving feedback and immediacy
+                  <li>IDE as crucial part of programming language
+                  <li>Our working hypothesis: source code for input and output
+                </ul>
+              </section>
+
+              <section>
+                <blockquote>
+                  Syntactic Real-Estate for Direct Manipulation and Immediate Feedback
+                </blockquote>
+              </section>
+
+              
+              <section>
+
+                <pre><code data-trim data-noescape>
+                    doIt("1 + 2", 3)
+                </code></pre>
+
+                <pre class="fragment"><code data-trim data-noescape>
+                    doIt("1 * 2", 2)
+                </code></pre>
+
+                </section>
+
+              <section>
+                <h3>What You Program is What You See</h3>
+                <ul>
+                  <li>Live examples and tests
+                  <li>Spreadsheets
+                  <li>"Probes"
+                </ul>
+              </section>
+              
+              <section>
+                <h3>Exploring examples and tests</h3>
+                        <div id="editor_tests" style="background-color: #ffffff; margin-top: 0px; width: 950px; height: 466px; margin-left: 0px;  text-align: left;">function factors(n) {
+  test([
+    {n: 0, result: []},
+    {n: 4, should: [1,4,2], result: true}
+  ]);
+  var fs = [];
+  for (var i = 1; i <= Math.floor(Math.sqrt(n)); i++)
+    if (n % i === 0) {
+      fs.push(i);
+      if (n / i !== i) fs.push(n / i);
+    }
+  return fs;
+}</div>
+
+                       </section>
+
+              <section data-background-image="images/spreadsheet.jpg">
+                <h1>Spreadsheets</h1>
+              </section>
+              
+              <section>
+                <h3>Sheet Literals</h3>
+                
+      <div id="editor_sheets" style="background-color: #ffffff; margin-top: 0px; width: 850px; height: 466px; margin-left: 0px;  text-align: left;">cell(function avg(sheet, lab, exam) {
+  return (lab + exam) / 2;
+});
+
+cell(function classAvg(sheet) {
+  return avg('avg', sheet);
+});
+
+var grades = sheet([
+ {classAvg: 8.375},
+ {student: 'James', lab: 9, exam: 9, avg: 9},
+ {student: 'Sean', lab: 8.5, exam: 7, avg: 7.75}
+]);</div>
+              </section>
+
+              <section>
+                <h3>Bret Victor, Inventing on Principle</h3>
+                <img src="images/bret.png" style="border: none;">
+              </section>
+
+              
+              <section>
+<div id="editor_probes" style="background-color: #ffffff; margin-top: 0px; width: 950px; height: 700px; margin-left: 0px; text-align: left;">function binarySearch(key, array) {
+    run({key: 'g', array: ['a', 'b', 'c', 'd', 'e', 'f']});
+
+    var low = 0, high = array.length - 1; 
+    
+    while (low <= high) {
+        p(low, [0,3,5]);
+        p(high, [5,5,5]);
+        
+        var mid = Math.floor((low + high)/2);
+        var value = array[mid];
+
+        p(mid, [2,4,5]);
+        p(value, ["c","e","f"]);
+
+        if (value < key)
+            low = mid + 1; 
+        else if (value > key)
+            high = mid - 1;
+        else
+            return mid;
+   }
+   return -1;
+}</div>
+              </section>
+
+              <section>
+                <h3>But, but, why!?</h3>
+
+                <ul>
+                  <li>Less is more
+                  <li>Persistence and sharing
+                  <li>Amenable to abstraction
+                </ul>
+                </section>
+
+              <section>
+                <h2>Live Literals</h2>
+                <ul>
+                  <li>Source code as interactive medium of input and ouput
+                  <li>Live literals: tests, spreadsheets, "probes"
+                  <li>Towards live text
+                  <li>Source code all the things. 
+                </ul>
+
+              </section>
+              
+            </div>
+        </div>
+        <script src="js/reveal.js"></script>
+        <script>
+            Reveal.initialize();
+        </script>
+
+            <script src="js/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+  var editorTests = ace.edit("editor_tests");
+  editorTests.renderer.setShowGutter(false);
+    editorTests.setTheme("ace/theme/eclipse");
+    editorTests.session.setMode("ace/mode/javascript");
+    editorTests.session.setOption("useWorker", false);
+    editorTests.getSession().on('change', changeHandler(editorTests));
+  editorTests.setOptions({
+  fontFamily: "Menlo",
+  fontSize: "1.5rem"
+  });
+  
+    var editorSheets = ace.edit("editor_sheets");
+    editorSheets.renderer.setShowGutter(false);
+    editorSheets.setTheme("ace/theme/eclipse");
+    editorSheets.session.setMode("ace/mode/javascript");
+    editorSheets.session.setOption("useWorker", false);
+    editorSheets.getSession().on('change', changeHandler(editorSheets));
+  editorSheets.setOptions({
+  fontFamily: "Menlo",
+  fontSize: "1.5rem"
+  });
+
+
+    var editorProbes = ace.edit("editor_probes");
+    editorProbes.renderer.setShowGutter(false);
+    editorProbes.setTheme("ace/theme/eclipse");
+    editorProbes.session.setMode("ace/mode/javascript");
+  editorProbes.session.setOption("useWorker", false);
+  editorProbes.container.style.lineHeight = 1.5;
+  editorProbes.getSession().on('change', changeHandler(editorProbes));
+  editorProbes.setOptions({
+  fontFamily: "Menlo",
+  fontSize: "1.2rem"
+  });
+
+
+</script>
+
+    </body>
+</html>
