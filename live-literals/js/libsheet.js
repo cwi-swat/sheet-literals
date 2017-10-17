@@ -406,7 +406,7 @@ function patchProbes(tree, lit) {
 // transforms to: p({x: valueOfX})
 function p(x, ignored) {
     var err = getErrorObject();
-    var caller_line = err.stack.split('\n')[4];
+    var caller_line = err.stack.split('\n')[3];
     console.log("caller = " + caller_line);
     var index = caller_line.indexOf('<anonymous>');
     var key = caller_line.slice(index+12, caller_line.length - 1);
